@@ -1,0 +1,30 @@
+{
+  "presets": [
+    "env",
+    "react",
+    "stage-3"
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          "emotion",
+          {
+            "hoist": true
+          }
+        ]
+      ]
+    },
+    "development": {
+      "plugins": [
+        [
+          "emotion",
+          {
+            "sourceMap": true,
+            "autoLabel": true
+          }
+        ]
+      ]
+    }
+  }
+}
