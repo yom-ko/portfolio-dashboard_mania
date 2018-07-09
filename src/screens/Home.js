@@ -19,7 +19,9 @@ const Home = () => (
     <section className="section">
       <div className={cx('container', customContainer)}>
         <div className="content">
-          <MainText>Hey, this is my first portfolio project!</MainText>
+          <MainText>
+            Hey, this is my first portfolio project! Check it out!
+          </MainText>
         </div>
       </div>
     </section>
