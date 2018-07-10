@@ -21,14 +21,34 @@ const customSpan = css`
   margin: 0 auto;
 `;
 
+const customContent = css`
+  .to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+  }
+`;
+
 class Stories extends Component {
   constructor(props) {
     super(props);
     this.requestStories = this.requestStories.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
     this.requestStories();
+  }
+
+  handleScroll() {
+    if (document.documentElement.scrollTop > 580) {
+      this.toTopButton.style.display = 'block';
+    } else {
+      this.toTopButton.style.display = 'none';
+    }
   }
 
   requestStories() {
@@ -45,9 +65,17 @@ class Stories extends Component {
                 <FontAwesomeIcon icon="spinner" size="2x" spin />
               </span>
             ) : (
-              <div className="content">
+              <div className={cx('content', customContent)}>
                 <h1 className="title">The New York Times Top Stories</h1>
                 <StoryList items={this.props.stories} />
+                <button
+                  ref={el => (this.toTopButton = el)}
+                  className="button is-danger to-top"
+                  onClick={() => (document.documentElement.scrollTop = 0)}
+                >
+                  To Top&nbsp;&nbsp;
+                  <FontAwesomeIcon icon="angle-up" size="1x" />
+                </button>
               </div>
             )}
           </div>

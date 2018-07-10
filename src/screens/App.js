@@ -7,6 +7,7 @@ import { injectGlobal } from 'react-emotion';
 import fontawesome from '@fortawesome/fontawesome';
 import faSignInAlt from '@fortawesome/fontawesome-free-solid/faSignInAlt';
 import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner';
+import faAngleUp from '@fortawesome/fontawesome-free-solid/faAngleUp';
 
 // Import high-level components
 import MainNavbar from 'screens/app/MainNavbar';
@@ -20,7 +21,7 @@ import raven from 'screens/app/images/raven.jpg';
 import wooden from 'screens/app/images/wooden.jpg';
 
 // Initialize custom fontawesome library with icons
-fontawesome.library.add(faSignInAlt, faSpinner);
+fontawesome.library.add(faSignInAlt, faSpinner, faAngleUp);
 
 // Set custom styles
 injectGlobal`
