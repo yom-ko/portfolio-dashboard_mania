@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 // Actions
 export const actions = {
   // Action types
@@ -67,8 +69,8 @@ export const actions = {
 
 // Selectors
 export const getVisibleTodos = state => {
-  const todosAr = Object.entries(state.todosById);
-  const { filter } = state;
+  const todosAr = Object.entries(state.todos.todosById);
+  const { filter } = state.todos;
 
   switch (filter) {
     case 'ALL': {
@@ -112,18 +114,15 @@ export const getPageNumbers = state => {
   return pageNumbers;
 };
 
-// Reducer
-const initialState = {
-  todosById: {},
-  isAddingTodo: false,
-  filter: 'ALL',
-  pagination: {
-    currentPage: 1,
-    todosPerPage: 4
-  }
-};
-
-export default (state = initialState, action = {}) => {
+// Reducers
+export const todos = (
+  state = {
+    todosById: {},
+    isAddingTodo: false,
+    filter: 'ALL'
+  },
+  action = {}
+) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -187,15 +186,27 @@ export default (state = initialState, action = {}) => {
       };
     }
 
+    default:
+      return state;
+  }
+};
+
+export const pagination = (
+  state = {
+    currentPage: 1,
+    todosPerPage: 4
+  },
+  action
+) => {
+  const { type, payload } = action;
+
+  switch (type) {
     case actions.CHANGE_PAGE: {
       const { pageNumber } = payload;
 
       return {
         ...state,
-        pagination: {
-          ...state.pagination,
-          currentPage: pageNumber
-        }
+        currentPage: pageNumber
       };
     }
 
@@ -203,3 +214,8 @@ export default (state = initialState, action = {}) => {
       return state;
   }
 };
+
+export default combineReducers({
+  todos,
+  pagination
+});

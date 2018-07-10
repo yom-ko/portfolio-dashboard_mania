@@ -163,7 +163,6 @@ Todolist.propTypes = {
   currentTodos: PropTypes.arrayOf(
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object]))
   ).isRequired,
-  isAddingTodo: PropTypes.bool.isRequired,
   currentPage: PropTypes.number.isRequired,
   addTodoRequested: PropTypes.func.isRequired,
   toggleTodo: PropTypes.func.isRequired,
@@ -175,7 +174,7 @@ Todolist.propTypes = {
 const mapStateToProps = ({ todolist }) => ({
   currentTodos: getCurrentTodos(todolist),
   pageNumbers: getPageNumbers(todolist),
-  isAddingTodo: todolist.isAddingTodo,
+  isAddingTodo: todolist.todos.isAddingTodo,
   currentPage: todolist.pagination.currentPage
 });
 

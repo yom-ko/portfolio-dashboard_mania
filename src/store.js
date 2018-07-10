@@ -4,10 +4,12 @@ import { createBrowserHistory } from 'history';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from 'modules/reducers';
 import rootSaga from 'modules/sagas';
+import { loadState } from 'utils/localStorage';
 
 export const history = createBrowserHistory();
 
-const initialState = {};
+const preloadedState = loadState();
+
 const enhancers = [];
 
 const sagaMiddleware = createSagaMiddleware();
@@ -25,7 +27,7 @@ const composedEnhancers = composeEnhancers(
 // create the app store
 export default createStore(
   connectRouter(history)(rootReducer),
-  initialState,
+  preloadedState,
   composedEnhancers
 );
 

@@ -45,7 +45,7 @@ FilterButton.propTypes = {
 };
 
 const mapStateToProps = ({ todolist }, ownPops) => ({
-  active: ownPops.filter === todolist.filter
+  active: ownPops.filter === todolist.todos.filter
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
