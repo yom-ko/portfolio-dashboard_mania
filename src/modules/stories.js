@@ -3,6 +3,7 @@ export const actions = {
   // Action types
   REQUEST_STORIES: '@stories/REQUEST_STORIES',
   RECEIVE_STORIES: '@stories/RECEIVE_STORIES',
+  INVALIDATE_STORIES: '@stories/INVALIDATE_STORIES',
 
   // Action creators
   requestStories(url) {
@@ -12,10 +13,16 @@ export const actions = {
     };
   },
 
-  receiveStories(results) {
+  receiveStories(results, updateTime) {
     return {
       type: actions.RECEIVE_STORIES,
-      payload: { results }
+      payload: { results, updateTime }
+    };
+  },
+
+  invalidateStories() {
+    return {
+      type: actions.INVALIDATE_STORIES
     };
   }
 };
@@ -23,7 +30,9 @@ export const actions = {
 // reducer
 const initialState = {
   storiesById: {},
-  isFetchingStories: false
+  isFetchingStories: false,
+  lastUpdated: null,
+  invalidated: true
 };
 
 export default (state = initialState, action = {}) => {
@@ -38,7 +47,7 @@ export default (state = initialState, action = {}) => {
     }
 
     case actions.RECEIVE_STORIES: {
-      const { results } = payload;
+      const { results, updateTime } = payload;
       let newStoriesById = {};
 
       results.forEach(result => {
@@ -51,7 +60,16 @@ export default (state = initialState, action = {}) => {
           ...state.storiesById,
           ...newStoriesById
         },
-        isFetchingStories: false
+        isFetchingStories: false,
+        lastUpdated: updateTime,
+        invalidated: false
+      };
+    }
+
+    case actions.INVALIDATE_STORIES: {
+      return {
+        ...state,
+        invalidated: true
       };
     }
 

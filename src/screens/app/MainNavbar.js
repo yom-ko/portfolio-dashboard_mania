@@ -72,7 +72,7 @@ export default class MainNavbar extends React.Component {
                   to="/stories"
                   onClick={this.toggle}
                 >
-                  NYT Stories
+                  Stories
                 </NavLink>
               </div>
 

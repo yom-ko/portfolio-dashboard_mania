@@ -18,7 +18,9 @@ function* fetchStories(action) {
   try {
     const data = yield call(api.fetchArticles, action.payload.url);
     const { results } = data;
-    yield put(storyActions.receiveStories(results));
+    const rawUpdateTime = new Date();
+    const updateTime = rawUpdateTime.toLocaleTimeString('ru-RU');
+    yield put(storyActions.receiveStories(results, updateTime));
   } catch (err) {
     console.log(err);
   }

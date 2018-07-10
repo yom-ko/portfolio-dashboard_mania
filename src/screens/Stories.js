@@ -34,13 +34,13 @@ const customContent = css`
 class Stories extends Component {
   constructor(props) {
     super(props);
-    this.requestStories = this.requestStories.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
+    this.requestStoriesIfNeeded = this.requestStoriesIfNeeded.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
-    this.requestStories();
+    this.requestStoriesIfNeeded();
   }
 
   handleScroll() {
@@ -51,8 +51,10 @@ class Stories extends Component {
     }
   }
 
-  requestStories() {
-    this.props.requestStories(api.url);
+  requestStoriesIfNeeded() {
+    if (this.props.storiesInvalidated) {
+      this.props.requestStories(api.url);
+    }
   }
 
   render() {
@@ -60,24 +62,39 @@ class Stories extends Component {
       <div>
         <div className="section">
           <div className={cx('container', customContainer)}>
-            {this.props.isFetchingStories ? (
-              <span className={customSpan}>
-                <FontAwesomeIcon icon="spinner" size="2x" spin />
-              </span>
-            ) : (
-              <div className={cx('content', customContent)}>
-                <h1 className="title">The New York Times Top Stories</h1>
-                <StoryList items={this.props.stories} />
-                <button
-                  ref={el => (this.toTopButton = el)}
-                  className="button is-danger to-top"
-                  onClick={() => (document.documentElement.scrollTop = 0)}
-                >
-                  To Top&nbsp;&nbsp;
-                  <FontAwesomeIcon icon="angle-up" size="1x" />
-                </button>
-              </div>
-            )}
+            <div className={cx('content', customContent)}>
+              <h1 className="title">The New York Times Top Stories</h1>
+              <p style={{ fontSize: '0.85rem' }}>
+                Last update time: {this.props.lastUpdated}
+              </p>
+              <button
+                className="button is-warning"
+                style={{ marginBottom: '1rem' }}
+                onClick={() => {
+                  this.props.requestStories(api.url);
+                }}
+              >
+                Refresh
+              </button>
+
+              {this.props.isFetchingStories ? (
+                <span className={customSpan}>
+                  <FontAwesomeIcon icon="spinner" size="2x" spin />
+                </span>
+              ) : (
+                <div>
+                  <StoryList items={this.props.stories} />
+                  <button
+                    ref={el => (this.toTopButton = el)}
+                    className="button is-danger to-top"
+                    onClick={() => (document.documentElement.scrollTop = 0)}
+                  >
+                    To Top&nbsp;&nbsp;
+                    <FontAwesomeIcon icon="angle-up" size="1x" />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -88,13 +105,16 @@ class Stories extends Component {
 // Map state and dispatch() to the component props
 const mapStateToProps = ({ stories }) => ({
   stories: stories.storiesById,
-  isFetchingStories: stories.isFetchingStories
+  isFetchingStories: stories.isFetchingStories,
+  lastUpdated: stories.lastUpdated,
+  storiesInvalidated: stories.invalidated
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      requestStories: actions.requestStories
+      requestStories: actions.requestStories,
+      invalidateStories: actions.invalidateStories
     },
     dispatch
   );
