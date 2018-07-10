@@ -22,13 +22,8 @@ export const actions = {
 
 // reducer
 const initialState = {
-  items: {},
-  isFetchingStories: false,
-  pagination: {
-    currentPage: 0,
-    itemsPerPage: 8,
-    nextPage: undefined
-  }
+  storiesById: {},
+  isFetchingStories: false
 };
 
 export default (state = initialState, action = {}) => {
@@ -44,17 +39,17 @@ export default (state = initialState, action = {}) => {
 
     case actions.RECEIVE_STORIES: {
       const { results } = payload;
-      let newItems = {};
+      let newStoriesById = {};
 
       results.forEach(result => {
-        newItems = { ...newItems, [result.title]: result };
+        newStoriesById = { ...newStoriesById, [result.title]: result };
       });
 
       return {
         ...state,
-        items: {
-          ...state.items,
-          ...newItems
+        storiesById: {
+          ...state.storiesById,
+          ...newStoriesById
         },
         isFetchingStories: false
       };

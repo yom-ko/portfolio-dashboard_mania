@@ -8,9 +8,9 @@ import fontawesome from '@fortawesome/fontawesome';
 import faSignInAlt from '@fortawesome/fontawesome-free-solid/faSignInAlt';
 import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner';
 
-// Import components
-import Home from 'screens/Home';
+// Import high-level components
 import MainNavbar from 'screens/app/MainNavbar';
+import Home from 'screens/Home';
 import TodoList from 'screens/TodoList';
 import Stories from 'screens/Stories';
 

@@ -41,18 +41,6 @@ Story.propTypes = {
   item: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.object])
   ).isRequired,
-  mediaObj: PropTypes.objectOf(
-    PropTypes.shape({
-      url: PropTypes.string,
-      format: PropTypes.string,
-      height: PropTypes.number,
-      width: PropTypes.number,
-      type: PropTypes.string,
-      subtype: PropTypes.string,
-      caption: PropTypes.string,
-      copyright: PropTypes.string
-    })
-  ).isRequired,
   withSubsection: PropTypes.bool.isRequired
 };
 

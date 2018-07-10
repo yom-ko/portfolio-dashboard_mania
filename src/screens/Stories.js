@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actions } from 'modules/stories.js';
 import { css, cx } from 'react-emotion';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+
+import { actions } from 'modules/stories.js';
 import * as api from 'utils/api';
 
 import StoryList from 'screens/stories/StoryList';
@@ -58,7 +59,7 @@ class Stories extends Component {
 
 // Map state and dispatch() to the component props
 const mapStateToProps = ({ stories }) => ({
-  stories: stories.items,
+  stories: stories.storiesById,
   isFetchingStories: stories.isFetchingStories
 });
 
