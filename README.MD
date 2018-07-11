@@ -5,3 +5,13 @@ It's idea is dead simple — just a bunch of mini apps (think paginated lists wi
 I have built this project 'from scratch', meaning no boilerplates – just Webpack 4 and stuff (yeah, it has taken time to make everything play nicely together).
 
 The project structure is heavily inspired by '[Fractal](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af)' (do click, it's worth taking a look).
+
+Key (and equally awesome) libs used in this project:
+* View Layer - React (react + react-dom)
+* Styling:
+  * CSS Framework - Bulma
+  * Custom Styling - Emotion (emotion + react-emotion + babel-plugin-emotion)
+  * Icons - Fontawesome (fontawesome + fontawesome-free-solid + fontawesome-svg-core + react-fontawesome)
+* State Management - Redux (redux + react-redux)
+* Side Effect Management - Redux-Saga (redux-saga)
+* Routing - React Router (react-router + react-router-dom + connected-react-router)

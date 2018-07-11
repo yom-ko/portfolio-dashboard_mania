@@ -64,8 +64,8 @@ class Stories extends Component {
           <div className={cx('container', customContainer)}>
             <div className={cx('content', customContent)}>
               <h1 className="title">The New York Times Top Stories</h1>
-              <p style={{ fontSize: '0.85rem' }}>
-                Last update time: {this.props.lastUpdated}
+              <p style={{ fontSize: '0.90rem' }}>
+                Last updated at: {this.props.lastUpdated}
               </p>
               <button
                 className="button is-warning"
