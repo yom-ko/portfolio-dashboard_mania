@@ -1,5 +1,5 @@
 import React from 'react';
-import Story from 'screens/stories/Story';
+import Story from 'screens/stories/storylist/Story';
 
 export const StoryList = ({ items }) => {
   const itemsAr = Object.entries(items);
