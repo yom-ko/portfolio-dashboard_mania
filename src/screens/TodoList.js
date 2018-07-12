@@ -11,12 +11,6 @@ import PaginatedList from 'screens/todolist/PaginatedList';
 import Paginator from 'screens/todolist/Paginator';
 import FilterButton from 'screens/todolist/FilterButton';
 
-const customContainer = css`
-  background-color: #fff;
-  padding: 1rem;
-  min-height: 600px;
-`;
-
 const customBox = css`
   min-height: 600px;
 `;
@@ -105,54 +99,52 @@ class Todolist extends Component {
   render() {
     return (
       <section className="section">
-        <div className={cx('container', customContainer)}>
-          <div className={cx('box', customBox)}>
-            <div className={customDiv}>
-              <div>
-                <form onSubmit={this.addTodo} className={customForm}>
-                  <input
-                    type="text"
-                    className="input"
-                    placeholder="Enter a todo"
-                    ref={el => (this.inputElement = el)}
-                  />
-                  <Button type="submit" modCss={customButton}>
-                    {this.props.isAddingTodo ? 'Todo is loading...' : '+'}
-                  </Button>
-                </form>
+        <div className={cx('box', customBox)}>
+          <div className={customDiv}>
+            <div>
+              <form onSubmit={this.addTodo} className={customForm}>
+                <input
+                  type="text"
+                  className="input"
+                  placeholder="Enter a todo"
+                  ref={el => (this.inputElement = el)}
+                />
+                <Button type="submit" modCss={customButton}>
+                  {this.props.isAddingTodo ? 'Todo is loading...' : '+'}
+                </Button>
+              </form>
+              <div style={{ marginBottom: '2rem' }}>
+                <FilterButton
+                  filter="ALL"
+                  changePageOnFilter={this.changePageOnFilter}
+                >
+                  All
+                </FilterButton>
+                <FilterButton
+                  filter="COMPLETED"
+                  changePageOnFilter={this.changePageOnFilter}
+                >
+                  Completed
+                </FilterButton>
+                <FilterButton
+                  filter="ACTIVE"
+                  changePageOnFilter={this.changePageOnFilter}
+                >
+                  Active
+                </FilterButton>
               </div>
-              <PaginatedList
-                currentItems={this.props.currentTodos}
-                handleClick1={this.toggleTodo}
-                handleClick2={this.removeTodo}
-              />
             </div>
-            <Paginator
-              pageNumbers={this.props.pageNumbers}
-              currentPage={this.props.currentPage}
-              handlePageClick={this.changePage}
+            <PaginatedList
+              currentItems={this.props.currentTodos}
+              handleClick1={this.toggleTodo}
+              handleClick2={this.removeTodo}
             />
           </div>
-          <div>
-            <FilterButton
-              filter="ALL"
-              changePageOnFilter={this.changePageOnFilter}
-            >
-              ALL
-            </FilterButton>
-            <FilterButton
-              filter="COMPLETED"
-              changePageOnFilter={this.changePageOnFilter}
-            >
-              COMPLETED
-            </FilterButton>
-            <FilterButton
-              filter="ACTIVE"
-              changePageOnFilter={this.changePageOnFilter}
-            >
-              ACTIVE
-            </FilterButton>
-          </div>
+          <Paginator
+            pageNumbers={this.props.pageNumbers}
+            currentPage={this.props.currentPage}
+            handlePageClick={this.changePage}
+          />
         </div>
       </section>
     );

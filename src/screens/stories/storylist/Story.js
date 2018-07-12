@@ -28,7 +28,7 @@ export const Story = ({ item, mediaObj, withSubsection }) => (
     </div>
     {withSubsection ? (
       <div style={{ display: 'inline-block' }}>
-        &nbsp;{'> '}
+        &nbsp;&gt;&nbsp;
         <span className="tag is-light is-rounded">{item[1].subsection}</span>
       </div>
     ) : (

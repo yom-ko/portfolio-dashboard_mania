@@ -9,11 +9,6 @@ import * as api from 'utils/api';
 
 import StoryList from 'screens/stories/StoryList';
 
-const customContainer = css`
-  background-color: #fff;
-  padding: 1rem;
-`;
-
 const customSpan = css`
   display: block;
   width: 1rem;
@@ -60,8 +55,8 @@ class Stories extends Component {
   render() {
     return (
       <div>
-        <div className="section">
-          <div className={cx('container', customContainer)}>
+        <section className="section">
+          <div className="box">
             <div className={cx('content', customContent)}>
               <h1 className="title">The New York Times Top Stories</h1>
               <p style={{ fontSize: '0.90rem' }}>
@@ -96,7 +91,7 @@ class Stories extends Component {
               )}
             </div>
           </div>
-        </div>
+        </section>
       </div>
     );
   }

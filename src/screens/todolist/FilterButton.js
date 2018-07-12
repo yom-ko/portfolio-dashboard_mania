@@ -18,7 +18,7 @@ export const FilterButton = ({
   <Button
     type="button"
     disabled={active}
-    mod="is-dark"
+    mod="is-text"
     modCss={customButton}
     handleClick={() => {
       changeFilter();
