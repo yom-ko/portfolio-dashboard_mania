@@ -15,7 +15,8 @@ store.subscribe(() => {
   saveState({
     todolist: {
       todos: {
-        todosById: store.getState().todolist.todos.todosById
+        todosById: store.getState().todolist.todos.todosById,
+        filter: 'ALL'
       }
     }
   });

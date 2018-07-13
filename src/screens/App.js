@@ -17,7 +17,7 @@ import Home from 'screens/Home';
 import TodoList from 'screens/TodoList';
 import Stories from 'screens/Stories';
 
-// Import common (Bulma) styles and images
+// Import Bulma styles (shared between all components)
 import 'screens/app/styles.sass';
 
 // Initialize custom fontawesome library with icons

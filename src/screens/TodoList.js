@@ -13,22 +13,17 @@ import FilterButton from 'screens/todolist/FilterButton';
 
 const customBox = css`
   min-height: 600px;
-`;
-
-const customDiv = css`
-  height: 500px;
-`;
-
-const customForm = css`
-  input {
+  .todosWrapper {
+    height: 500px;
+  }
+  .form-input {
     width: 13.5rem;
     margin-right: 0.5rem;
     margin-bottom: 20px;
   }
-`;
-
-const customButton = `
-  margin-bottom: 10px;
+  .form-submit {
+    margin-bottom: 10px;
+  }
 `;
 
 // Container component
@@ -100,16 +95,16 @@ class Todolist extends Component {
     return (
       <section className="section">
         <div className={cx('box', customBox)}>
-          <div className={customDiv}>
+          <div className="todosWrapper">
             <div>
-              <form onSubmit={this.addTodo} className={customForm}>
+              <form onSubmit={this.addTodo}>
                 <input
                   type="text"
-                  className="input"
+                  className="input form-input"
                   placeholder="Enter a todo"
                   ref={el => (this.inputElement = el)}
                 />
-                <Button type="submit" modCss={customButton}>
+                <Button type="submit form-submit">
                   {this.props.isAddingTodo ? 'Todo is loading...' : '+'}
                 </Button>
               </form>
@@ -121,16 +116,16 @@ class Todolist extends Component {
                   All
                 </FilterButton>
                 <FilterButton
-                  filter="COMPLETED"
-                  changePageOnFilter={this.changePageOnFilter}
-                >
-                  Completed
-                </FilterButton>
-                <FilterButton
                   filter="ACTIVE"
                   changePageOnFilter={this.changePageOnFilter}
                 >
                   Active
+                </FilterButton>
+                <FilterButton
+                  filter="COMPLETED"
+                  changePageOnFilter={this.changePageOnFilter}
+                >
+                  Completed
                 </FilterButton>
               </div>
             </div>

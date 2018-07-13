@@ -9,14 +9,13 @@ import * as api from 'utils/api';
 
 import StoryList from 'screens/stories/StoryList';
 
-const customSpan = css`
-  display: block;
-  width: 1rem;
-  height: 100%;
-  margin: 0 auto;
-`;
-
-const customContent = css`
+const customBox = css`
+  .spinner {
+    display: block;
+    width: 1rem;
+    height: 100%;
+    margin: 0 auto;
+  }
   .to-top {
     display: none;
     position: fixed;
@@ -38,11 +37,17 @@ class Stories extends Component {
     this.requestStoriesIfNeeded();
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
   handleScroll() {
-    if (document.documentElement.scrollTop > 580) {
-      this.toTopButton.style.display = 'block';
-    } else {
-      this.toTopButton.style.display = 'none';
+    if (this.toTopButton !== null) {
+      if (document.documentElement.scrollTop > 580) {
+        this.toTopButton.style.display = 'block';
+      } else {
+        this.toTopButton.style.display = 'none';
+      }
     }
   }
 
@@ -54,45 +59,40 @@ class Stories extends Component {
 
   render() {
     return (
-      <div>
-        <section className="section">
-          <div className="box">
-            <div className={cx('content', customContent)}>
-              <h1 className="title">The New York Times Top Stories</h1>
-              <p style={{ fontSize: '0.90rem' }}>
-                Last updated at: {this.props.lastUpdated}
-              </p>
+      <section className="section">
+        <div className={cx('box', customBox)}>
+          <h1 className="title">The New York Times Top Stories</h1>
+          <p style={{ fontSize: '0.90rem' }}>
+            Last updated at: {this.props.lastUpdated}
+          </p>
+          <button
+            className="button is-warning"
+            style={{ marginBottom: '1rem' }}
+            onClick={() => {
+              this.props.requestStories(api.url);
+            }}
+          >
+            Refresh
+          </button>
+          {this.props.isFetchingStories ? (
+            <span className="spinner">
+              <FontAwesomeIcon icon="spinner" size="2x" spin />
+            </span>
+          ) : (
+            <div>
+              <StoryList items={this.props.stories} />
               <button
-                className="button is-warning"
-                style={{ marginBottom: '1rem' }}
-                onClick={() => {
-                  this.props.requestStories(api.url);
-                }}
+                ref={el => (this.toTopButton = el)}
+                className="button is-danger to-top"
+                onClick={() => (document.documentElement.scrollTop = 0)}
               >
-                Refresh
+                To Top&nbsp;&nbsp;
+                <FontAwesomeIcon icon="angle-up" size="1x" />
               </button>
-
-              {this.props.isFetchingStories ? (
-                <span className={customSpan}>
-                  <FontAwesomeIcon icon="spinner" size="2x" spin />
-                </span>
-              ) : (
-                <div>
-                  <StoryList items={this.props.stories} />
-                  <button
-                    ref={el => (this.toTopButton = el)}
-                    className="button is-danger to-top"
-                    onClick={() => (document.documentElement.scrollTop = 0)}
-                  >
-                    To Top&nbsp;&nbsp;
-                    <FontAwesomeIcon icon="angle-up" size="1x" />
-                  </button>
-                </div>
-              )}
             </div>
-          </div>
-        </section>
-      </div>
+          )}
+        </div>
+      </section>
     );
   }
 }

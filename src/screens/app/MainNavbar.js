@@ -5,6 +5,10 @@ import { css } from 'react-emotion';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 const mainNavbarStyle = css`
+  .navbar-item {
+    padding: 0.5rem 0.3rem;
+  }
+
   .navbar-item > .button {
     color: #fff;
     background-color: inherit;
@@ -12,6 +16,7 @@ const mainNavbarStyle = css`
   }
 
   .navbar-item > .button:hover {
+    color: #fff;
     background-color: #b8335c;
   }
 
@@ -20,6 +25,7 @@ const mainNavbarStyle = css`
   }
 
   .navbar-item > .button:focus:not(:active) {
+    color: #fff;
     background-color: #b8335c;
     border-color: #c93c67;
     box-shadow: none;
@@ -88,7 +94,6 @@ export class MainNavbar extends React.Component {
                       : 'button'
                   }
                   to="/"
-                  onClick={this.toggle}
                 >
                   Home
                 </NavLink>
@@ -101,7 +106,6 @@ export class MainNavbar extends React.Component {
                       : 'button'
                   }
                   to="/todolist"
-                  onClick={this.toggle}
                 >
                   Todolist
                 </NavLink>
@@ -114,7 +118,6 @@ export class MainNavbar extends React.Component {
                       : 'button'
                   }
                   to="/stories"
-                  onClick={this.toggle}
                 >
                   Stories
                 </NavLink>
@@ -123,11 +126,7 @@ export class MainNavbar extends React.Component {
 
             <div className="navbar-end">
               <div className="navbar-item">
-                <NavLink
-                  className="button is-text"
-                  to="/login"
-                  onClick={this.toggle}
-                >
+                <NavLink className="button is-text" to="/login">
                   <span className="icon is-small">
                     <FontAwesomeIcon icon="sign-in-alt" />
                   </span>
