@@ -16,6 +16,7 @@ import MainContent from 'screens/app/MainContent';
 import Home from 'screens/Home';
 import TodoList from 'screens/TodoList';
 import Stories from 'screens/Stories';
+import Calc from 'screens/Calc';
 
 // Import Bulma styles (shared between all components)
 import 'screens/app/styles.sass';
@@ -33,6 +34,7 @@ export const App = () => (
       <Route exact path="/" component={Home} />
       <Route exact path="/todolist" component={TodoList} />
       <Route exact path="/stories" component={Stories} />
+      <Route exact path="/calc" component={Calc} />
     </MainContent>
   </div>
 );

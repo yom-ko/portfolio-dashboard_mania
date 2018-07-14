@@ -122,6 +122,18 @@ export class MainNavbar extends React.Component {
                   Stories
                 </NavLink>
               </div>
+              <div className="navbar-item">
+                <NavLink
+                  className={
+                    this.props.currentPath === '/calc'
+                      ? 'button active-button'
+                      : 'button'
+                  }
+                  to="/calc"
+                >
+                  Calc
+                </NavLink>
+              </div>
             </div>
 
             <div className="navbar-end">
