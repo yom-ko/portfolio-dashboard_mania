@@ -7,24 +7,87 @@ import Keyboard from 'screens/calc/Keyboard';
 const customBox = css`
   .calculator {
     width: 16.5rem;
+    border: 1px solid lightgray;
+    box-shadow: 1px 1px 2px gray;
+    background-image: -webkit-repeating-linear-gradient(
+        top,
+        hsla(0, 0%, 100%, 0) 0%,
+        hsla(0, 0%, 100%, 0) 6%,
+        hsla(0, 0%, 100%, 0.1) 7.5%
+      ),
+      -webkit-repeating-linear-gradient(top, hsla(0, 0%, 0%, 0) 0%, hsla(
+              0,
+              0%,
+              0%,
+              0
+            )
+            4%, hsla(0, 0%, 0%, 0.03) 4.5%),
+      -webkit-repeating-linear-gradient(top, hsla(0, 0%, 100%, 0) 0%, hsla(
+              0,
+              0%,
+              100%,
+              0
+            )
+            1.2%, hsla(0, 0%, 100%, 0.15) 2.2%),
+      linear-gradient(
+        180deg,
+        hsl(0, 0%, 78%) 0%,
+        hsl(0, 0%, 90%) 47%,
+        hsl(0, 0%, 78%) 53%,
+        hsl(0, 0%, 70%) 100%
+      );
   }
   .calculator .screen {
-    height: 3rem;
-    background-color: #95c9b7;
+    height: 4rem;
+    font-size: 1.8em;
+    font-weight: 440;
+    overflow-x: auto;
     border-radius: 5px;
     margin-bottom: 0.8rem;
+    vertical-align: bottom;
+    background-color: #86d6a0;
+    border: 1px solid #7eb2a0;
+    padding: 0 0.3rem 0 0.3rem;
+    box-shadow: outset 2px 1px 2px gray;
+  }
+  .calculator .keyboard {
+    background-color: transparent;
   }
   .calculator .keyboard .digit_keys {
     width: 80%;
     float: left;
   }
-  .calculator .keyboard .operator_keys_side {
+  .calculator .keyboard .digit_keys .button {
+    color: #fff;
+    background-color: black;
+    border: 1px solid black;
+    box-shadow: inset 1px 1px 2px gray;
+  }
+  .calculator .keyboard .digit_keys .button:active {
+    box-shadow: none;
+  }
+  .calculator .keyboard .digit_keys .key-clear {
+    border: 1px solid #f05252;
+    background-color: #f05252;
+    box-shadow: inset 1px 1px 2px #fc8989;
+  }
+  .calculator .keyboard .operator_keys {
     width: 20%;
     float: right;
   }
-  .calculator .keyboard .operator_keys_side .button {
-    width: 40px;
-    float: right;
+  .calculator .keyboard .operator_keys .button {
+    color: #fff;
+    border: 1px solid #5a7ce3;
+    background-color: #5a7ce3;
+    box-shadow: inset 1px 1px 2px darkgray;
+  }
+  .calculator .keyboard .operator_keys .button:active {
+    box-shadow: none;
+  }
+  .calculator .keyboard .operator_keys .key-equals {
+    border-color: #eaa517;
+    background-color: #eaa517;
+    box-shadow: inset 1px 1px 2px #ffc95a;
   }
 `;
 

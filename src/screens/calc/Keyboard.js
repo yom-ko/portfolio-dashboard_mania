@@ -37,11 +37,11 @@ const Keyboard = ({
       <button className="button" onClick={handleDigitClick}>
         0
       </button>
-      <button className="button" onClick={handleResetClick}>
+      <button className="button key-clear" onClick={handleResetClick}>
         C
       </button>
     </div>
-    <div className="buttons operator_keys_side">
+    <div className="buttons operator_keys">
       <button className="button" onClick={handleOperatorClick}>
         /&nbsp;
       </button>
@@ -54,7 +54,7 @@ const Keyboard = ({
       <button className="button" onClick={handleOperatorClick}>
         +
       </button>
-      <button className="button" onClick={handleOperatorClick}>
+      <button className="button key-equals" onClick={handleOperatorClick}>
         =
       </button>
     </div>
