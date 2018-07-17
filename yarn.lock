@@ -67,9 +67,9 @@
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.1.7.tgz#4336c4b06d0b5608ff1215464b66fcf9f4795284"
 
-"@fortawesome/fontawesome-common-types@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.0.tgz#6bcf6481030f59e7ffd1a40a67cd464d47780f6a"
+"@fortawesome/fontawesome-common-types@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.1.tgz#b919b31ab1b42cd2aadab5fa45934347c30ee316"
 
 "@fortawesome/fontawesome-free-solid@^5.0.13":
   version "5.0.13"
@@ -77,11 +77,11 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.1.7"
 
-"@fortawesome/fontawesome-svg-core@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.0.tgz#b0ec14af25cdc11d38ede7d8c94b89b478ab67ab"
+"@fortawesome/fontawesome-svg-core@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.1.tgz#ae203b7563a8b6d7ebf8fe66253b92bd7a7a8a08"
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.0"
+    "@fortawesome/fontawesome-common-types" "^0.2.1"
 
 "@fortawesome/fontawesome@^1.1.8":
   version "1.1.8"

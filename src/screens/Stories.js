@@ -74,11 +74,14 @@ class Stories extends Component {
           >
             Refresh
           </button>
-          {this.props.isFetchingStories ? (
+
+          {this.props.isFetchingStories && (
             <span className="spinner">
               <FontAwesomeIcon icon="spinner" size="2x" spin />
             </span>
-          ) : (
+          )}
+
+          {!this.props.isFetchingStories && (
             <div>
               <StoryList items={this.props.stories} />
               <button
