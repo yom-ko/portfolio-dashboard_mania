@@ -5,6 +5,7 @@ import Screen from 'screens/calc/Screen';
 import Keyboard from 'screens/calc/Keyboard';
 
 const customBox = css`
+  /* Overall calculator styles */
   .calculator {
     width: 16.5rem;
     border: 1px solid lightgray;
@@ -37,11 +38,12 @@ const customBox = css`
         hsl(0, 0%, 70%) 100%
       );
   }
+  /* Screen styles */
   .calculator .screen {
     height: 4rem;
+    overflow-x: auto;
     font-size: 1.8em;
     font-weight: 440;
-    overflow-x: auto;
     border-radius: 5px;
     margin-bottom: 0.8rem;
     vertical-align: bottom;
@@ -50,9 +52,11 @@ const customBox = css`
     padding: 0 0.3rem 0 0.3rem;
     box-shadow: outset 2px 1px 2px gray;
   }
+  /* Shared keyboard styles */
   .calculator .keyboard {
     background-color: transparent;
   }
+  /* Digit keyboard styles */
   .calculator .keyboard .digit_keys {
     width: 80%;
     float: left;
@@ -71,6 +75,7 @@ const customBox = css`
     background-color: #f05252;
     box-shadow: inset 1px 1px 2px #fc8989;
   }
+  /* Operator keyboard styles */
   .calculator .keyboard .operator_keys {
     width: 20%;
     float: right;
@@ -92,6 +97,7 @@ const customBox = css`
 `;
 
 class Calc extends Component {
+  // Bind 'this' in class methods
   constructor(props) {
     super(props);
     this.setRef = this.setRef.bind(this);
@@ -99,6 +105,7 @@ class Calc extends Component {
     this.handleOperatorClick = this.handleOperatorClick.bind(this);
     this.handleResetClick = this.handleResetClick.bind(this);
 
+    // Set up initial state
     this.state = {
       currentOperand: [],
       operand_1: null,
@@ -107,12 +114,17 @@ class Calc extends Component {
     };
   }
 
-  setRef(ref) {
-    this.screenDivRef = ref;
+  // Method to catch the ref element from the Screen component
+  setRef(el) {
+    this.screenDivRef = el;
   }
 
+  // Method to handle the 'C' key clicks
   handleResetClick() {
+    // Empty the screen
     this.screenDivRef.textContent = '';
+
+    // ... and the state
     this.setState({
       currentOperand: [],
       operand_1: null,
@@ -121,21 +133,27 @@ class Calc extends Component {
     });
   }
 
+  // Method to handle any digit key clicks
   handleDigitClick(e) {
     const digit = Number(e.target.textContent);
 
     this.setState(
       prevState => ({
+        // Keep pushing digits to an array. Once an operator key is clicked,
+        // the array will become an operand number and will be saved separately in the state.
         currentOperand: [...prevState.currentOperand, digit]
       }),
       () => {
+        // Simultaneously, turn the current array into a string and output it to the screen
         const currentOperandText = this.state.currentOperand.join('');
         this.screenDivRef.textContent = currentOperandText;
       }
     );
   }
 
+  // Method to handle any operator key clicks
   handleOperatorClick(e) {
+    // If there is not enough data yet, just do nothing
     if (
       this.state.currentOperand.length === 0 &&
       this.state.operator.length === 0
@@ -143,10 +161,14 @@ class Calc extends Component {
       return;
     }
 
+    // Get the operator itself
     const operator = e.target.textContent.trim();
 
+    // Turn the array of digits entered so far into a number
     const operand = parseInt(this.state.currentOperand.join(''), 10);
 
+    // If the the first operand is empty, save the number as operand_1.
+    // Also save the operator and empty the current digit array.
     if (this.state.operand_1 === null) {
       this.setState({
         operand_1: operand,
@@ -156,6 +178,7 @@ class Calc extends Component {
       return;
     }
 
+    // Prepare calculations in advance
     const calculations = {
       '+': (a, b) => a + b,
       '-': (a, b) => a - b,
@@ -164,19 +187,25 @@ class Calc extends Component {
     };
 
     if (this.state.operator !== '=') {
+      // If the previous operator is not '=', save the number as operand_2
       this.setState(
         {
           operand_2: operand,
           currentOperand: []
         },
         () => {
+          // Now that everything is ready, we can make the actual calculation
           const result = calculations[this.state.operator](
             this.state.operand_1,
             this.state.operand_2
           );
 
+          // ... then output the result
           this.screenDivRef.textContent = result.toString();
 
+          // ... and save the data for the next iteration:
+          // the current result will become the first operand of the next calculation
+          // which enables a sort of 'calculation chaining'. Notice: the operator may be '='.
           this.setState({
             operand_1: result,
             operand_2: null,
@@ -185,6 +214,8 @@ class Calc extends Component {
         }
       );
     } else {
+      // If the previous operator is '=', we only need to update the operator
+      // to make a proper math expression for the next calculation.
       this.setState({
         operator,
         currentOperand: []
