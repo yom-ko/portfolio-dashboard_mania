@@ -7,7 +7,7 @@ import Keyboard from 'screens/calc/Keyboard';
 const customBox = css`
   /* Overall calculator styles */
   .calculator {
-    width: 16.5rem;
+    width: 18rem;
     border: 1px solid lightgray;
     box-shadow: 1px 1px 2px gray;
     background-image: -webkit-repeating-linear-gradient(
@@ -58,11 +58,12 @@ const customBox = css`
   }
   /* Digit keyboard styles */
   .calculator .keyboard .digit_keys {
-    width: 80%;
+    width: 78%;
     float: left;
   }
   .calculator .keyboard .digit_keys .button {
     color: #fff;
+    width: 2.4rem;
     background-color: black;
     border: 1px solid black;
     box-shadow: inset 1px 1px 2px gray;
@@ -77,11 +78,12 @@ const customBox = css`
   }
   /* Operator keyboard styles */
   .calculator .keyboard .operator_keys {
-    width: 20%;
+    width: 22%;
     float: right;
   }
   .calculator .keyboard .operator_keys .button {
     color: #fff;
+    width: 2.4rem;
     border: 1px solid #5a7ce3;
     background-color: #5a7ce3;
     box-shadow: inset 1px 1px 2px darkgray;
@@ -135,13 +137,13 @@ class Calc extends Component {
 
   // Method to handle any digit key clicks
   handleDigitClick(e) {
-    const digit = Number(e.target.textContent);
+    const digitOrPoint = e.target.textContent.trim();
 
     this.setState(
       prevState => ({
         // Keep pushing digits to an array. Once an operator key is clicked,
         // the array will become an operand number and will be saved separately in the state.
-        currentOperand: [...prevState.currentOperand, digit]
+        currentOperand: [...prevState.currentOperand, digitOrPoint]
       }),
       () => {
         // Simultaneously, turn the current array into a string and output it to the screen
@@ -161,11 +163,17 @@ class Calc extends Component {
       return;
     }
 
+    // Notify the user with a screen flash that the operation was successful
+    this.screenDivRef.style.backgroundColor = '#aff7c6';
+    setTimeout(() => {
+      this.screenDivRef.style.backgroundColor = '#93e3ad';
+    }, 6);
+
     // Get the operator itself
     const operator = e.target.textContent.trim();
 
     // Turn the array of digits entered so far into a number
-    const operand = parseInt(this.state.currentOperand.join(''), 10);
+    const operand = parseFloat(this.state.currentOperand.join(''));
 
     // If the the first operand is empty, save the number as operand_1.
     // Also save the operator and empty the current digit array.
