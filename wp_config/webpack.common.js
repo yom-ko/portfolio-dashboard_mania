@@ -32,6 +32,10 @@ module.exports = {
         use: ['style-loader']
       },
       {
+        test: /\.(woff|ttf)$/,
+        use: ['url-loader']
+      },
+      {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           {
