@@ -136,7 +136,7 @@ class Calc extends Component {
     super(props);
     this.setRef = this.setRef.bind(this);
     this.handleDigitClick = this.handleDigitClick.bind(this);
-    this.handlePlusMinusClick = this.handlePlusMinusClick.bind(this);
+    this.handleNegativeClick = this.handleNegativeClick.bind(this);
     this.handleOperatorClick = this.handleOperatorClick.bind(this);
     this.handleDeleteDigit = this.handleDeleteDigit.bind(this);
     this.handleDeleteCurrent = this.handleDeleteCurrent.bind(this);
@@ -183,7 +183,7 @@ class Calc extends Component {
     // Empty the screen
     this.screenDivRef.textContent = '';
 
-    // ... and empty the current operand
+    // ... and the current operand
     this.setState({
       currentOperand: []
     });
@@ -229,33 +229,63 @@ class Calc extends Component {
     );
   }
 
-  // Method to handle plus/minus key clicks
-  handlePlusMinusClick() {
-    // Only allow sign on already entered digits
-    if (this.state.currentOperand.length === 0) {
+  // Method to handle negative/positive key clicks
+  handleNegativeClick() {
+    // Only allow a sign on the existing number
+    if (
+      this.state.currentOperand.length === 0 &&
+      this.state.operand_1 === null
+    ) {
       return;
     }
 
-    const newCurrentOperand = this.state.currentOperand;
-    const currentOperandHasMinus = newCurrentOperand.some(el => el === '-');
+    if (this.state.currentOperand.length !== 0) {
+      const newCurrentOperand = this.state.currentOperand;
+      const currentOperandHasMinus = newCurrentOperand.some(el => el === '-');
 
-    // Only one sign is allowed (either '+' or '-')!
-    if (currentOperandHasMinus) {
-      // Remove the minus sign!
-      newCurrentOperand.shift();
-    } else {
-      // Add '-' to the beginning of the currentOperand array
-      newCurrentOperand.unshift('-');
+      // Only one sign is allowed (either '-' or '+')!
+      if (currentOperandHasMinus) {
+        // Remove the '-' sign!
+        newCurrentOperand.shift();
+      } else {
+        // Add '-' to the beginning of the currentOperand array
+        newCurrentOperand.unshift('-');
+      }
+
+      // Update the state and the screen
+      this.setState(
+        {
+          currentOperand: newCurrentOperand
+        },
+        () => {
+          const currentOperandText = this.state.currentOperand.join('');
+          this.screenDivRef.textContent = currentOperandText;
+        }
+      );
+      return;
     }
 
-    // Update the state and the screen
+    // Now the operand_1's sign needs to be updated. The logic is essentially the same.
+    const operand1Ar = this.state.operand_1.toString().split('');
+    const operand1HasMinus = operand1Ar.some(el => el === '-');
+
+    if (operand1HasMinus) {
+      // Remove the '-' sign!
+      operand1Ar.shift();
+    } else {
+      // Add '-' to the beginning of the array
+      operand1Ar.unshift('-');
+    }
+
+    const newOperand1 = parseFloat(operand1Ar.join(''));
+
     this.setState(
       {
-        currentOperand: newCurrentOperand
+        operand_1: newOperand1
       },
       () => {
-        const currentOperandText = this.state.currentOperand.join('');
-        this.screenDivRef.textContent = currentOperandText;
+        const operand1Text = this.state.operand_1.toString();
+        this.screenDivRef.textContent = operand1Text;
       }
     );
   }
@@ -270,19 +300,19 @@ class Calc extends Component {
       return;
     }
 
-    // Notify the user with a screen flash that the operation was successful
+    // Get the operator itself
+    const operator = e.currentTarget.getAttribute('operator').trim();
+
+    // Notify the user with a screen flash that the operator was applied successfully
     this.screenDivRef.style.backgroundColor = '#aff7c6';
     setTimeout(() => {
       this.screenDivRef.style.backgroundColor = '#93e3ad';
     }, 5);
 
-    // Get the operator itself
-    const operator = e.currentTarget.getAttribute('operator').trim();
-
-    // Turn the array of digits entered so far into a number
+    // Turn the array of digits (entered so far) into a valid number with fraction support
     const operand = parseFloat(this.state.currentOperand.join(''));
 
-    // If the the first operand is empty, save the number as operand_1.
+    // If the the first operand is still empty, save the number as operand_1.
     // Also save the operator and empty the current digit array.
     if (this.state.operand_1 === null) {
       this.setState({
@@ -318,8 +348,8 @@ class Calc extends Component {
           // ... then output the result
           this.screenDivRef.textContent = result.toString();
 
-          // Wait a sec! If the result is 0, it hardly makes sense to save it,
-          // so we`d better reset the state and return
+          // Wait a sec! If the result is 0, it hardly makes sense to save it
+          // for further processing, so we`d better reset the state and return.
           if (result === 0) {
             this.setState({
               currentOperand: [],
@@ -342,7 +372,7 @@ class Calc extends Component {
       );
     } else {
       // If the previous operator is '=', we only need to update the operator
-      // to make a proper math expression for the next calculation.
+      // to compose a valid math expression for the next calculation.
       this.setState({
         operator,
         currentOperand: []
@@ -359,7 +389,7 @@ class Calc extends Component {
             <Keyboard
               handleDigitClick={e => this.handleDigitClick(e)}
               handleOperatorClick={e => this.handleOperatorClick(e)}
-              handlePlusMinusClick={this.handlePlusMinusClick}
+              handleNegativeClick={this.handleNegativeClick}
               handleDeleteDigit={this.handleDeleteDigit}
               handleDeleteCurrent={this.handleDeleteCurrent}
               handleReset={this.handleReset}

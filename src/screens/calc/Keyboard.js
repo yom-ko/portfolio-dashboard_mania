@@ -4,7 +4,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 const Keyboard = ({
   handleDigitClick,
   handleOperatorClick,
-  handlePlusMinusClick,
+  handleNegativeClick,
   handleDeleteDigit,
   handleDeleteCurrent,
   handleReset
@@ -56,7 +56,7 @@ const Keyboard = ({
       <button className="button" onClick={handleDigitClick}>
         0
       </button>
-      <button className="button" onClick={handlePlusMinusClick}>
+      <button className="button" onClick={handleNegativeClick}>
         +/-
       </button>
     </div>
