@@ -23,9 +23,6 @@ const Keyboard = ({
     </div>
     <div className="buttons digit_keys">
       <button className="button" onClick={handleDigitClick}>
-        6
-      </button>
-      <button className="button" onClick={handleDigitClick}>
         7
       </button>
       <button className="button" onClick={handleDigitClick}>
@@ -35,19 +32,22 @@ const Keyboard = ({
         9
       </button>
       <button className="button" onClick={handleDigitClick}>
-        2
-      </button>
-      <button className="button" onClick={handleDigitClick}>
-        3
-      </button>
-      <button className="button" onClick={handleDigitClick}>
         4
       </button>
       <button className="button" onClick={handleDigitClick}>
         5
       </button>
       <button className="button" onClick={handleDigitClick}>
+        6
+      </button>
+      <button className="button" onClick={handleDigitClick}>
         1
+      </button>
+      <button className="button" onClick={handleDigitClick}>
+        2
+      </button>
+      <button className="button" onClick={handleDigitClick}>
+        3
       </button>
 
       <button className="button" onClick={handleDigitClick}>
