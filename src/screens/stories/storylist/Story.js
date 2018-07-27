@@ -17,10 +17,12 @@ export const Story = ({ item, mediaObj, withSubsection }) => (
     </a>
     {/* Title */}
     <a href={item[1].url} target="_blank" rel="noopener noreferrer">
-      <h2 className="subtitle is-5">{item[1].title}</h2>
+      <h2 className="title is-5">{item[1].title}</h2>
     </a>
     {/* Abstract */}
-    <p>{item[1].abstract}</p>
+    <p style={{ marginTop: '0.8rem', marginBottom: '0.8rem' }}>
+      {item[1].abstract}
+    </p>
     {/* Section tags */}
     <span style={{ fontSize: '0.85em' }}>Section: </span>
     <div style={{ display: 'inline-block' }}>
