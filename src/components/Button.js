@@ -4,14 +4,7 @@ import PropTypes from 'prop-types';
 import { css, cx } from 'react-emotion';
 /* eslint-enable */
 
-export const Button = ({
-  type,
-  children,
-  disabled,
-  mod,
-  modCss,
-  handleClick
-}) => (
+export const Button = ({ type, children, disabled, mod, modCss, handleClick }) => (
   <button
     type={type}
     disabled={disabled}

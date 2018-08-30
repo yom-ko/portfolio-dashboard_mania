@@ -18,20 +18,20 @@ const customBox = css`
         hsla(0, 0%, 100%, 0) 6%,
         hsla(0, 0%, 100%, 0.1) 7.5%
       ),
-      -webkit-repeating-linear-gradient(top, hsla(0, 0%, 0%, 0) 0%, hsla(
+      -webkit-repeating-linear-gradient(top, hsla(0, 0%, 0%, 0) 0%, hsla(0, 0%, 0%, 0) 4%, hsla(
               0,
               0%,
               0%,
-              0
+              0.03
             )
-            4%, hsla(0, 0%, 0%, 0.03) 4.5%),
-      -webkit-repeating-linear-gradient(top, hsla(0, 0%, 100%, 0) 0%, hsla(
+            4.5%),
+      -webkit-repeating-linear-gradient(top, hsla(0, 0%, 100%, 0) 0%, hsla(0, 0%, 100%, 0) 1.2%, hsla(
               0,
               0%,
               100%,
-              0
+              0.15
             )
-            1.2%, hsla(0, 0%, 100%, 0.15) 2.2%),
+            2.2%),
       linear-gradient(
         180deg,
         hsl(0, 0%, 78%) 0%,
@@ -65,6 +65,9 @@ const customBox = css`
   }
 
   /* Service keyboard styles */
+  .buttons .button:not(:last-child) {
+    margin-right: 0;
+  }
   .calculator .keyboard .service_keys .button {
     color: #fff;
     width: 2.8rem;
@@ -113,9 +116,9 @@ const customBox = css`
     color: #fff;
     width: 2.8rem;
     height: 2.8rem;
-    margin: 0;
+    /* margin: 0; */
     margin-left: auto;
-    margin-bottom: 0.4rem;
+    /* margin-bottom: 0.4rem; */
     border: 1px solid #4d74f7;
     background-color: #4d74f7;
     box-shadow: inset 1px 1px 2px #7c9bff;
@@ -136,7 +139,7 @@ class Calc extends Component {
     super(props);
     this.setRef = this.setRef.bind(this);
     this.handleDigitClick = this.handleDigitClick.bind(this);
-    this.handleNegativeClick = this.handleNegativeClick.bind(this);
+    this.handleNegateClick = this.handleNegateClick.bind(this);
     this.handleOperatorClick = this.handleOperatorClick.bind(this);
     this.handleDeleteDigit = this.handleDeleteDigit.bind(this);
     this.handleDeleteCurrent = this.handleDeleteCurrent.bind(this);
@@ -145,8 +148,8 @@ class Calc extends Component {
     // Set up the initial state
     this.state = {
       currentOperand: [],
-      operand_1: null,
-      operand_2: null,
+      operand1: null,
+      operand2: null,
       operator: ''
     };
   }
@@ -158,12 +161,14 @@ class Calc extends Component {
 
   // Method to handle the '<-' key clicks
   handleDeleteDigit() {
-    if (this.state.currentOperand.length === 0) {
+    const { currentOperand } = this.state;
+
+    if (currentOperand.length === 0) {
       return;
     }
 
     // Delete the current digit
-    const newCurrentOperand = [...this.state.currentOperand];
+    const newCurrentOperand = [...currentOperand];
     newCurrentOperand.splice(-1, 1);
 
     const currentOperandText = newCurrentOperand.join('');
@@ -176,7 +181,9 @@ class Calc extends Component {
 
   // Method to handle the 'CE' key clicks
   handleDeleteCurrent() {
-    if (this.state.currentOperand.length === 0) {
+    const { currentOperand } = this.state;
+
+    if (currentOperand.length === 0) {
       return;
     }
 
@@ -197,18 +204,18 @@ class Calc extends Component {
     // ... and the whole state
     this.setState({
       currentOperand: [],
-      operand_1: null,
-      operand_2: null,
+      operand1: null,
+      operand2: null,
       operator: ''
     });
   }
 
   // Method to handle any digit key clicks
   handleDigitClick(e) {
+    const { currentOperand } = this.state;
+
     const digitOrPoint = e.target.textContent.trim();
-    const currentOperandHasPoint = this.state.currentOperand.some(
-      el => el === '.'
-    );
+    const currentOperandHasPoint = currentOperand.some(el => el === '.');
 
     // Only one floating point is allowed!
     if (digitOrPoint === '.' && currentOperandHasPoint) {
@@ -222,25 +229,25 @@ class Calc extends Component {
         currentOperand: [...prevState.currentOperand, digitOrPoint]
       }),
       () => {
+        const { currentOperand: justUpdatedCurrentOperand } = this.state;
         // Simultaneously, turn the current array into a string and output it to the screen
-        const currentOperandText = this.state.currentOperand.join('');
+        const currentOperandText = justUpdatedCurrentOperand.join('');
         this.screenDivRef.textContent = currentOperandText;
       }
     );
   }
 
   // Method to handle negative/positive key clicks
-  handleNegativeClick() {
+  handleNegateClick() {
+    const { currentOperand, operand1 } = this.state;
+
     // Only allow a sign on the existing number
-    if (
-      this.state.currentOperand.length === 0 &&
-      this.state.operand_1 === null
-    ) {
+    if (currentOperand.length === 0 && operand1 === null) {
       return;
     }
 
-    if (this.state.currentOperand.length !== 0) {
-      const newCurrentOperand = this.state.currentOperand;
+    if (currentOperand.length !== 0) {
+      const newCurrentOperand = currentOperand;
       const currentOperandHasMinus = newCurrentOperand.some(el => el === '-');
 
       // Only one sign is allowed (either '-' or '+')!
@@ -258,15 +265,16 @@ class Calc extends Component {
           currentOperand: newCurrentOperand
         },
         () => {
-          const currentOperandText = this.state.currentOperand.join('');
+          const { currentOperand: justUpdatedCurrentOperand } = this.state;
+          const currentOperandText = justUpdatedCurrentOperand.join('');
           this.screenDivRef.textContent = currentOperandText;
         }
       );
       return;
     }
 
-    // Now the operand_1's sign needs to be updated. The logic is essentially the same.
-    const operand1Ar = this.state.operand_1.toString().split('');
+    // Now the operand1's sign needs to be updated. The logic is essentially the same.
+    const operand1Ar = operand1.toString().split('');
     const operand1HasMinus = operand1Ar.some(el => el === '-');
 
     if (operand1HasMinus) {
@@ -281,10 +289,11 @@ class Calc extends Component {
 
     this.setState(
       {
-        operand_1: newOperand1
+        operand1: newOperand1
       },
       () => {
-        const operand1Text = this.state.operand_1.toString();
+        const { operand1: justUpdatedOperand1 } = this.state;
+        const operand1Text = justUpdatedOperand1.toString();
         this.screenDivRef.textContent = operand1Text;
       }
     );
@@ -292,11 +301,10 @@ class Calc extends Component {
 
   // Method to handle any operator key clicks
   handleOperatorClick(e) {
+    const { currentOperand, operator: currentOperator, operand1 } = this.state;
+
     // If there is not enough data yet, just do nothing
-    if (
-      this.state.currentOperand.length === 0 &&
-      this.state.operator.length === 0
-    ) {
+    if (currentOperand.length === 0 && currentOperator.length === 0) {
       return;
     }
 
@@ -307,18 +315,28 @@ class Calc extends Component {
     this.screenDivRef.style.backgroundColor = '#aff7c6';
     setTimeout(() => {
       this.screenDivRef.style.backgroundColor = '#93e3ad';
-    }, 5);
+    }, 4);
 
     // Turn the array of digits (entered so far) into a valid number with fraction support
-    const operand = parseFloat(this.state.currentOperand.join(''));
+    const operand = parseFloat(currentOperand.join(''));
 
-    // If the the first operand is still empty, save the number as operand_1.
+    // If the the first operand is still empty, save the number as operand1.
     // Also save the operator and empty the current digit array.
-    if (this.state.operand_1 === null) {
+    if (operand1 === null) {
       this.setState({
-        operand_1: operand,
+        operand1: operand,
         operator,
         currentOperand: []
+      });
+      return;
+    }
+
+    // If the first operand is already there but the current operand is empty,
+    // then the user hasn't yet decided on the operation, so just update the operator
+    // according to their choice.
+    if (currentOperand.length === 0) {
+      this.setState({
+        operator
       });
       return;
     }
@@ -331,18 +349,23 @@ class Calc extends Component {
       '/': (a, b) => a / b
     };
 
-    if (this.state.operator !== '=') {
-      // If the previous operator is not '=', save the number as operand_2
+    if (currentOperator !== '=') {
+      // If the current operator is not '=', save the number as operand2
       this.setState(
         {
-          operand_2: operand,
+          operand2: operand,
           currentOperand: []
         },
         () => {
+          const {
+            operator: justUpdatedOperator,
+            operand1: justUpdatedOperand1,
+            operand2: justUpdatedOperand2
+          } = this.state;
           // Now that everything is ready, we can make the actual calculation
-          const result = calculations[this.state.operator](
-            this.state.operand_1,
-            this.state.operand_2
+          const result = calculations[justUpdatedOperator](
+            justUpdatedOperand1,
+            justUpdatedOperand2
           );
 
           // ... then output the result
@@ -353,8 +376,8 @@ class Calc extends Component {
           if (result === 0) {
             this.setState({
               currentOperand: [],
-              operand_1: null,
-              operand_2: null,
+              operand1: null,
+              operand2: null,
               operator: ''
             });
             return;
@@ -364,8 +387,8 @@ class Calc extends Component {
           // the current result will become the first operand of the next calculation
           // which enables a sort of 'calculation chaining'. Notice: the operator may be '='.
           this.setState({
-            operand_1: result,
-            operand_2: null,
+            operand1: result,
+            operand2: null,
             operator
           });
         }
@@ -382,14 +405,14 @@ class Calc extends Component {
 
   render() {
     return (
-      <section className="section">
+      <section className="container">
         <div className={cx('box', customBox)}>
           <div className="box calculator">
             <Screen {...this.props} setRef={this.setRef} />
             <Keyboard
               handleDigitClick={e => this.handleDigitClick(e)}
               handleOperatorClick={e => this.handleOperatorClick(e)}
-              handleNegativeClick={this.handleNegativeClick}
+              handleNegateClick={this.handleNegateClick}
               handleDeleteDigit={this.handleDeleteDigit}
               handleDeleteCurrent={this.handleDeleteCurrent}
               handleReset={this.handleReset}

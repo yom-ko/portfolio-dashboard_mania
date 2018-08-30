@@ -9,12 +9,7 @@ const customButton = `
   margin-right: 10px;
 `;
 
-export const FilterButton = ({
-  children,
-  active,
-  changeFilter,
-  changePageOnFilter
-}) => (
+export const FilterButton = ({ children, active, changeFilter, changePageOnFilter }) => (
   <Button
     type="button"
     disabled={active}

@@ -1,5 +1,5 @@
 import React from 'react';
 
-const MainContent = props => <div className="container">{props.children}</div>;
+const MainContent = ({ children }) => <div className="section">{children}</div>;
 
 export default MainContent;

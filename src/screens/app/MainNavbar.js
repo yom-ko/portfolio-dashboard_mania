@@ -2,13 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { css } from 'react-emotion';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const mainNavbarStyle = css`
-  .navbar-item {
-    padding: 0.5rem 0.3rem;
-  }
-
   .navbar-item > .button {
     color: #fff;
     background-color: inherit;
@@ -49,105 +45,94 @@ export class MainNavbar extends React.Component {
   }
 
   toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
+    this.setState(prevState => {
+      const { isOpen } = prevState;
+      return {
+        isOpen: !isOpen
+      };
     });
   }
 
   render() {
+    const { isOpen } = this.state;
+    const { currentPath } = this.props;
+
     return (
       <div className={mainNavbarStyle}>
-        <nav
-          className="navbar"
-          style={{ backgroundColor: '#c93c67' }}
-          aria-label="main navigation"
-        >
-          <div className="navbar-brand">
-            <div
-              className={
-                this.state.isOpen
-                  ? 'navbar-burger burger is-active'
-                  : 'navbar-burger burger'
-              }
-              onClick={this.toggle}
-              onKeyDown={this.toggle}
-              role="button"
-              tabIndex="0"
-            >
-              <span />
-              <span />
-              <span />
-            </div>
-          </div>
-
-          <div
-            className={
-              this.state.isOpen ? 'navbar-menu is-active' : 'navbar-menu'
-            }
+        <div className="container">
+          <nav
+            className="navbar"
+            style={{ backgroundColor: '#c93c67' }}
+            aria-label="main navigation"
           >
-            <div className="navbar-start">
-              <div className="navbar-item">
-                <NavLink
-                  className={
-                    this.props.currentPath === '/'
-                      ? 'button active-button'
-                      : 'button'
-                  }
-                  to="/"
-                >
-                  Home
-                </NavLink>
-              </div>
-              <div className="navbar-item">
-                <NavLink
-                  className={
-                    this.props.currentPath === '/todolist'
-                      ? 'button active-button'
-                      : 'button'
-                  }
-                  to="/todolist"
-                >
-                  Todolist
-                </NavLink>
-              </div>
-              <div className="navbar-item">
-                <NavLink
-                  className={
-                    this.props.currentPath === '/stories'
-                      ? 'button active-button'
-                      : 'button'
-                  }
-                  to="/stories"
-                >
-                  Stories
-                </NavLink>
-              </div>
-              <div className="navbar-item">
-                <NavLink
-                  className={
-                    this.props.currentPath === '/calc'
-                      ? 'button active-button'
-                      : 'button'
-                  }
-                  to="/calc"
-                >
-                  Calc
-                </NavLink>
+            <div className="navbar-brand">
+              <div
+                className={isOpen ? 'navbar-burger burger is-active' : 'navbar-burger burger'}
+                onClick={this.toggle}
+                onKeyDown={this.toggle}
+                role="button"
+                tabIndex="0"
+              >
+                <span />
+                <span />
+                <span />
               </div>
             </div>
 
-            <div className="navbar-end">
-              <div className="navbar-item">
-                <NavLink className="button is-text" to="/login">
-                  <span className="icon is-small">
-                    <FontAwesomeIcon icon="sign-in-alt" />
-                  </span>
-                  <span>Login</span>
-                </NavLink>
+            <div className={isOpen ? 'navbar-menu is-active' : 'navbar-menu'}>
+              <div className="navbar-start">
+                <div className="navbar-item">
+                  <NavLink
+                    className={currentPath === '/' ? 'button active-button' : 'button'}
+                    to="/"
+                  >
+                    Home
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink
+                    className={currentPath === '/todolist' ? 'button active-button' : 'button'}
+                    to="/todolist"
+                  >
+                    Todolist
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink
+                    className={currentPath === '/stories' ? 'button active-button' : 'button'}
+                    to="/stories"
+                  >
+                    Stories
+                  </NavLink>
+                </div>
+                <div className="navbar-item">
+                  <NavLink
+                    className={currentPath === '/calc' ? 'button active-button' : 'button'}
+                    to="/calc"
+                  >
+                    Calc
+                  </NavLink>
+                </div>
+              </div>
+
+              <div className="navbar-end">
+                <div className="navbar-item">
+                  <NavLink
+                    className={
+                      currentPath === '/login' ? 'button active-button is-text' : 'button is-text'
+                    }
+                    to="/login"
+                  >
+                    <span className="icon is-small">
+                      <FontAwesomeIcon icon="sign-in-alt" />
+                    </span>
+                    <span>Login</span>
+                  </NavLink>
+                </div>
               </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>
     );
   }

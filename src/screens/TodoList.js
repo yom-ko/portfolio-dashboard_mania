@@ -40,6 +40,8 @@ class Todolist extends Component {
   addTodo(e) {
     e.preventDefault();
 
+    const { addTodoRequested } = this.props;
+
     // Check if the user has actually entered some text
     if (!this.inputElement.value.trim()) {
       console.log('Empty todos are not allowed!');
@@ -49,7 +51,7 @@ class Todolist extends Component {
     const key = Date.now();
     const text = this.inputElement.value;
 
-    this.props.addTodoRequested(key, text);
+    addTodoRequested(key, text);
 
     // Empty the input field and focus on it
     // to facilitate the adding of todos.
@@ -58,42 +60,48 @@ class Todolist extends Component {
   }
 
   toggleTodo(id) {
-    this.props.toggleTodo(id);
+    const { toggleTodo } = this.props;
+    toggleTodo(id);
   }
 
   removeTodo(id) {
-    this.props.removeTodo(id);
+    const { currentPage, currentTodos, changePage, removeTodo } = this.props;
+
+    removeTodo(id);
 
     // Switch to the previous page when there are
     // no more todos left on the current one.
-    if (
-      this.props.currentPage !== 1 &&
-      this.props.currentTodos.length - 1 === 0
-    ) {
-      this.props.changePage(this.props.currentPage - 1);
+    if (currentPage !== 1 && currentTodos.length - 1 === 0) {
+      changePage(currentPage - 1);
     }
   }
 
   changePage(e) {
+    const { changePage } = this.props;
+
     if (typeof e !== 'undefined') {
       e.preventDefault();
     }
 
     // Make sure the value will be a number
     const pageNumber = Number(e.target.id);
-    this.props.changePage(pageNumber);
+    changePage(pageNumber);
   }
 
   // Take the user to the first page of the filtered list
   changePageOnFilter() {
-    if (this.props.currentPage !== 1) {
-      this.props.changePage(1);
+    const { currentPage, changePage } = this.props;
+
+    if (currentPage !== 1) {
+      changePage(1);
     }
   }
 
   render() {
+    const { isAddingTodo, currentTodos, pageNumbers, currentPage } = this.props;
+
     return (
-      <section className="section">
+      <section className="container">
         <div className={cx('box', customBox)}>
           <div className="todosWrapper">
             <div>
@@ -105,39 +113,30 @@ class Todolist extends Component {
                   ref={el => (this.inputElement = el)}
                 />
                 <Button type="submit form-submit">
-                  {this.props.isAddingTodo ? 'Todo is loading...' : '+'}
+                  {isAddingTodo ? 'Todo is loading...' : '+'}
                 </Button>
               </form>
               <div style={{ marginBottom: '2rem' }}>
-                <FilterButton
-                  filter="ALL"
-                  changePageOnFilter={this.changePageOnFilter}
-                >
+                <FilterButton filter="ALL" changePageOnFilter={this.changePageOnFilter}>
                   All
                 </FilterButton>
-                <FilterButton
-                  filter="ACTIVE"
-                  changePageOnFilter={this.changePageOnFilter}
-                >
+                <FilterButton filter="ACTIVE" changePageOnFilter={this.changePageOnFilter}>
                   Active
                 </FilterButton>
-                <FilterButton
-                  filter="COMPLETED"
-                  changePageOnFilter={this.changePageOnFilter}
-                >
+                <FilterButton filter="COMPLETED" changePageOnFilter={this.changePageOnFilter}>
                   Completed
                 </FilterButton>
               </div>
             </div>
             <PaginatedList
-              currentItems={this.props.currentTodos}
+              currentItems={currentTodos}
               handleClick1={this.toggleTodo}
               handleClick2={this.removeTodo}
             />
           </div>
           <Paginator
-            pageNumbers={this.props.pageNumbers}
-            currentPage={this.props.currentPage}
+            pageNumbers={pageNumbers}
+            currentPage={currentPage}
             handlePageClick={this.changePage}
           />
         </div>
@@ -165,16 +164,15 @@ const mapStateToProps = ({ todolist }) => ({
   currentPage: todolist.pagination.currentPage
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      addTodoRequested: actions.addTodoRequested,
-      toggleTodo: actions.toggleTodo,
-      removeTodo: actions.removeTodo,
-      changePage: actions.changePage
-    },
-    dispatch
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    addTodoRequested: actions.addTodoRequested,
+    toggleTodo: actions.toggleTodo,
+    removeTodo: actions.removeTodo,
+    changePage: actions.changePage
+  },
+  dispatch
+);
 
 // Connect the container component to Redux store
 export default connect(

@@ -20,9 +20,7 @@ export const Story = ({ item, mediaObj, withSubsection }) => (
       <h2 className="title is-5">{item[1].title}</h2>
     </a>
     {/* Abstract */}
-    <p style={{ marginTop: '0.8rem', marginBottom: '0.8rem' }}>
-      {item[1].abstract}
-    </p>
+    <p style={{ marginTop: '0.8rem', marginBottom: '0.8rem' }}>{item[1].abstract}</p>
     {/* Section tags */}
     <span style={{ fontSize: '0.85em' }}>Section: </span>
     <div style={{ display: 'inline-block' }}>
@@ -40,9 +38,7 @@ export const Story = ({ item, mediaObj, withSubsection }) => (
 );
 
 Story.propTypes = {
-  item: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-  ).isRequired,
+  item: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired,
   withSubsection: PropTypes.bool.isRequired
 };
 

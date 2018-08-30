@@ -7,8 +7,7 @@ export const StoryList = ({ items }) => {
   const listItems = (() => {
     function createListItem(item) {
       const mediaObj = item[1].multimedia[1];
-      const withSubsection =
-        typeof item[1].subsection !== 'undefined' && item[1].subsection !== '';
+      const withSubsection = typeof item[1].subsection !== 'undefined' && item[1].subsection !== '';
 
       return (
         <Story

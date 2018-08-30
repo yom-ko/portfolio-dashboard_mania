@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { css, cx } from 'react-emotion';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { actions } from 'modules/stories.js';
 import * as api from 'utils/api';
@@ -52,39 +52,45 @@ class Stories extends Component {
   }
 
   requestStoriesIfNeeded() {
-    if (this.props.storiesInvalidated) {
-      this.props.requestStories(api.url);
+    const { storiesInvalidated, requestStories } = this.props;
+    if (storiesInvalidated) {
+      requestStories(api.url);
     }
   }
 
   render() {
+    const { lastUpdated, requestStories, isFetchingStories, stories } = this.props;
+
     return (
-      <section className="section">
+      <section className="container">
         <div className={cx('box', customBox)}>
           <h1 className="title">The New York Times Top Stories</h1>
           <p style={{ fontSize: '0.90rem' }}>
-            Last updated at: {this.props.lastUpdated}
+            Last updated at: &nbsp;
+            {lastUpdated}
           </p>
           <button
+            type="button"
             className="button is-warning"
             style={{ marginBottom: '1rem' }}
             onClick={() => {
-              this.props.requestStories(api.url);
+              requestStories(api.url);
             }}
           >
             Refresh
           </button>
 
-          {this.props.isFetchingStories && (
+          {isFetchingStories && (
             <span className="spinner">
               <FontAwesomeIcon icon="spinner" size="2x" spin />
             </span>
           )}
 
-          {!this.props.isFetchingStories && (
+          {!isFetchingStories && (
             <div>
-              <StoryList items={this.props.stories} />
+              <StoryList items={stories} />
               <button
+                type="button"
                 ref={el => (this.toTopButton = el)}
                 className="button is-danger to-top"
                 onClick={() => (document.documentElement.scrollTop = 0)}
@@ -108,14 +114,13 @@ const mapStateToProps = ({ stories }) => ({
   storiesInvalidated: stories.invalidated
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      requestStories: actions.requestStories,
-      invalidateStories: actions.invalidateStories
-    },
-    dispatch
-  );
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    requestStories: actions.requestStories,
+    invalidateStories: actions.invalidateStories
+  },
+  dispatch
+);
 
 // Connect the container component to Redux store
 export default connect(

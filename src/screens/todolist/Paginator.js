@@ -18,9 +18,7 @@ export const Paginator = ({ pageNumbers, currentPage, handlePageClick }) => {
           tabIndex="0"
           role="button"
           className={cx(
-            currentPage === number
-              ? 'pagination-link is-current'
-              : 'pagination-link',
+            currentPage === number ? 'pagination-link is-current' : 'pagination-link',
             customPaginationLink
           )}
         >

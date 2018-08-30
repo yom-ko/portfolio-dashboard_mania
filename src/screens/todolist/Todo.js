@@ -21,9 +21,7 @@ export const Todo = ({ item, handleClick1, handleClick2 }) => (
 );
 
 Todo.propTypes = {
-  item: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-  ).isRequired,
+  item: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])).isRequired,
   handleClick1: PropTypes.func.isRequired,
   handleClick2: PropTypes.func.isRequired
 };

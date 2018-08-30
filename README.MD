@@ -11,7 +11,7 @@ Key (and equally awesome) libs used in this project:
 * Styling:
   * CSS Framework - Bulma
   * Custom Styling - Emotion (emotion + react-emotion + babel-plugin-emotion)
-  * Icons - Fontawesome (fontawesome + fontawesome-free-solid + fontawesome-svg-core + react-fontawesome)
+  * Icons - Fontawesome (fontawesome + fontawesome-svg-core + free-solid-svg-icons + react-fontawesome)
 * State Management - Redux (redux + react-redux)
 * Side Effect Management - Redux-Saga (redux-saga)
 * Routing - React Router (react-router + react-router-dom + connected-react-router)
