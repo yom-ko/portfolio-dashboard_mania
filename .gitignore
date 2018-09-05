@@ -1,6 +1,6 @@
-# File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
-
-# Created by https://www.gitignore.io/api/visualstudiocode,windows,git,node,sass
+# Build directories
+build/
+dist/
 
 ### Node ###
 # Logs

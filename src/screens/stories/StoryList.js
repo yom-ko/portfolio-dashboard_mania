@@ -23,7 +23,7 @@ export const StoryList = ({ items }) => {
 
   return (
     <div className="tile is-ancestor">
-      <div className="tile is-7 is-vertical is-parent">{listItems}</div>
+      <div className="tile is-10 is-vertical is-parent">{listItems}</div>
     </div>
   );
 };
