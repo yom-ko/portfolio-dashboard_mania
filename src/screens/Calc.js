@@ -156,7 +156,7 @@ class Calc extends Component {
 
   // Method to catch the ref element from the Screen component
   setRef(el) {
-    this.screenDivRef = el;
+    this.screenEl = el;
   }
 
   // Method to handle the '<-' key clicks
@@ -172,7 +172,7 @@ class Calc extends Component {
     newCurrentOperand.splice(-1, 1);
 
     const currentOperandText = newCurrentOperand.join('');
-    this.screenDivRef.textContent = currentOperandText;
+    this.screenEl.textContent = currentOperandText;
 
     this.setState({
       currentOperand: newCurrentOperand
@@ -188,7 +188,7 @@ class Calc extends Component {
     }
 
     // Empty the screen
-    this.screenDivRef.textContent = '';
+    this.screenEl.textContent = '';
 
     // ... and the current operand
     this.setState({
@@ -199,7 +199,7 @@ class Calc extends Component {
   // Method to handle the 'C' key clicks
   handleReset() {
     // Empty the screen
-    this.screenDivRef.textContent = '';
+    this.screenEl.textContent = '';
 
     // ... and the whole state
     this.setState({
@@ -232,7 +232,7 @@ class Calc extends Component {
         const { currentOperand: justUpdatedCurrentOperand } = this.state;
         // Simultaneously, turn the current array into a string and output it to the screen
         const currentOperandText = justUpdatedCurrentOperand.join('');
-        this.screenDivRef.textContent = currentOperandText;
+        this.screenEl.textContent = currentOperandText;
       }
     );
   }
@@ -248,10 +248,10 @@ class Calc extends Component {
 
     if (currentOperand.length !== 0) {
       const newCurrentOperand = currentOperand;
-      const currentOperandHasMinus = newCurrentOperand.some(el => el === '-');
+      const currentOperandIsNegative = newCurrentOperand.some(el => el === '-');
 
       // Only one sign is allowed (either '-' or '+')!
-      if (currentOperandHasMinus) {
+      if (currentOperandIsNegative) {
         // Remove the '-' sign!
         newCurrentOperand.shift();
       } else {
@@ -267,7 +267,7 @@ class Calc extends Component {
         () => {
           const { currentOperand: justUpdatedCurrentOperand } = this.state;
           const currentOperandText = justUpdatedCurrentOperand.join('');
-          this.screenDivRef.textContent = currentOperandText;
+          this.screenEl.textContent = currentOperandText;
         }
       );
       return;
@@ -275,9 +275,9 @@ class Calc extends Component {
 
     // Now the operand1's sign needs to be updated. The logic is essentially the same.
     const operand1Ar = operand1.toString().split('');
-    const operand1HasMinus = operand1Ar.some(el => el === '-');
+    const operand1IsNegative = operand1Ar.some(el => el === '-');
 
-    if (operand1HasMinus) {
+    if (operand1IsNegative) {
       // Remove the '-' sign!
       operand1Ar.shift();
     } else {
@@ -294,7 +294,7 @@ class Calc extends Component {
       () => {
         const { operand1: justUpdatedOperand1 } = this.state;
         const operand1Text = justUpdatedOperand1.toString();
-        this.screenDivRef.textContent = operand1Text;
+        this.screenEl.textContent = operand1Text;
       }
     );
   }
@@ -312,9 +312,9 @@ class Calc extends Component {
     const operator = e.currentTarget.getAttribute('operator').trim();
 
     // Notify the user with a screen flash that the operator was applied successfully
-    this.screenDivRef.style.backgroundColor = '#aff7c6';
+    this.screenEl.style.backgroundColor = '#aff7c6';
     setTimeout(() => {
-      this.screenDivRef.style.backgroundColor = '#93e3ad';
+      this.screenEl.style.backgroundColor = '#93e3ad';
     }, 4);
 
     // Turn the array of digits (entered so far) into a valid number with fraction support
@@ -369,7 +369,7 @@ class Calc extends Component {
           );
 
           // ... then output the result
-          this.screenDivRef.textContent = result.toString();
+          this.screenEl.textContent = result.toString();
 
           // Wait a sec! If the result is 0, it hardly makes sense to save it
           // for further processing, so we`d better reset the state and return.
@@ -408,7 +408,7 @@ class Calc extends Component {
       <section className="container">
         <div className={cx('box', customBox)}>
           <div className="box calculator">
-            <Screen {...this.props} setRef={this.setRef} />
+            <Screen setRef={this.setRef} />
             <Keyboard
               handleDigitClick={e => this.handleDigitClick(e)}
               handleOperatorClick={e => this.handleOperatorClick(e)}
