@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { css, cx } from 'react-emotion';
+import { css } from 'react-emotion';
 
 import Screen from 'screens/calc/Screen';
 import Keyboard from 'screens/calc/Keyboard';
 
-const customBox = css`
+const calcStyles = css`
   /* Overall calculator styles */
   .calculator {
     width: 18rem;
@@ -40,109 +40,18 @@ const customBox = css`
         hsl(0, 0%, 70%) 100%
       );
   }
-
-  /* Screen styles */
-  .calculator .screen {
-    font-family: 'Digital7';
-    height: 4.5rem;
-    overflow-x: auto;
-    font-size: 2.2em;
-    font-weight: 440;
-    border-radius: 5px;
-    margin-bottom: 0.8rem;
-    vertical-align: bottom;
-    background-color: #86d6a0;
-    border: 1px solid #7eb2a0;
-    padding: 0 0.3rem 0 0.3rem;
-    box-shadow: outset 2px 1px 2px gray;
-  }
-
-  /* Shared keyboard styles */
-  .calculator .keyboard {
-    padding-left: 0.7rem;
-    padding-right: 0.7rem;
-    background-color: transparent;
-  }
-
-  /* Service keyboard styles */
-  .buttons .button:not(:last-child) {
-    margin-right: 0;
-  }
-  .calculator .keyboard .service_keys .button {
-    color: #fff;
-    width: 2.8rem;
-  }
-  .calculator .keyboard .service_keys .key-reset {
-    border: 1px solid #f00808;
-    background-color: #f00808;
-    box-shadow: inset 1px 1px 2px #fc8989;
-  }
-  .calculator .keyboard .service_keys .key-delete {
-    border: 1px solid #ff4343;
-    background-color: #ff4343;
-    box-shadow: inset 1px 1px 2px #fc8989;
-  }
-  .calculator .keyboard .service_keys .key-reset:active {
-    box-shadow: none;
-  }
-  .calculator .keyboard .service_keys .key-delete:active {
-    box-shadow: none;
-  }
-
-  /* Digit keyboard styles */
-  .calculator .keyboard .digit_keys {
-    width: 70%;
-    float: left;
-  }
-  .calculator .keyboard .digit_keys .button {
-    color: #fff;
-    width: 2.8rem;
-    height: 2.8rem;
-    margin-right: 0.4rem;
-    background-color: black;
-    border: 1px solid black;
-    box-shadow: inset 1px 1px 2px gray;
-  }
-  .calculator .keyboard .digit_keys .button:active {
-    box-shadow: none;
-  }
-
-  /* Operator keyboard styles */
-  .calculator .keyboard .operator_keys {
-    width: 30%;
-    float: right;
-  }
-  .calculator .keyboard .operator_keys .button {
-    color: #fff;
-    width: 2.8rem;
-    height: 2.8rem;
-    /* margin: 0; */
-    margin-left: auto;
-    /* margin-bottom: 0.4rem; */
-    border: 1px solid #4d74f7;
-    background-color: #4d74f7;
-    box-shadow: inset 1px 1px 2px #7c9bff;
-  }
-  .calculator .keyboard .operator_keys .button:active {
-    box-shadow: none;
-  }
-  .calculator .keyboard .operator_keys .key-equals {
-    border-color: #f06f0d;
-    background-color: #f06f0d;
-    box-shadow: inset 1px 1px 2px #ffc95a;
-  }
 `;
 
 class Calc extends Component {
   // Bind 'this' in class methods
   constructor(props) {
     super(props);
+    this.handleReset = this.handleReset.bind(this);
+    this.handleDeleteCurrent = this.handleDeleteCurrent.bind(this);
+    this.handleDeleteDigit = this.handleDeleteDigit.bind(this);
     this.handleDigitClick = this.handleDigitClick.bind(this);
     this.handleNegateClick = this.handleNegateClick.bind(this);
     this.handleOperatorClick = this.handleOperatorClick.bind(this);
-    this.handleDeleteDigit = this.handleDeleteDigit.bind(this);
-    this.handleDeleteCurrent = this.handleDeleteCurrent.bind(this);
-    this.handleReset = this.handleReset.bind(this);
 
     // Set up the initial state
     this.state = {
@@ -153,23 +62,17 @@ class Calc extends Component {
     };
   }
 
-  // Method to handle the '<-' key clicks
-  handleDeleteDigit() {
-    const { currentOperand } = this.state;
+  // Method to handle the 'C' key clicks
+  handleReset() {
+    // Empty the screen
+    this.screenEl.textContent = '';
 
-    if (currentOperand.length === 0) {
-      return;
-    }
-
-    // Delete the current digit
-    const newCurrentOperand = [...currentOperand];
-    newCurrentOperand.splice(-1, 1);
-
-    const currentOperandText = newCurrentOperand.join('');
-    this.screenEl.textContent = currentOperandText;
-
+    // ... and the whole state
     this.setState({
-      currentOperand: newCurrentOperand
+      currentOperand: [],
+      operand1: null,
+      operand2: null,
+      operator: ''
     });
   }
 
@@ -190,17 +93,23 @@ class Calc extends Component {
     });
   }
 
-  // Method to handle the 'C' key clicks
-  handleReset() {
-    // Empty the screen
-    this.screenEl.textContent = '';
+  // Method to handle the '<-' key clicks
+  handleDeleteDigit() {
+    const { currentOperand } = this.state;
 
-    // ... and the whole state
+    if (currentOperand.length === 0) {
+      return;
+    }
+
+    // Delete the current digit
+    const newCurrentOperand = [...currentOperand];
+    newCurrentOperand.splice(-1, 1);
+
+    const currentOperandText = newCurrentOperand.join('');
+    this.screenEl.textContent = currentOperandText;
+
     this.setState({
-      currentOperand: [],
-      operand1: null,
-      operand2: null,
-      operator: ''
+      currentOperand: newCurrentOperand
     });
   }
 
@@ -231,7 +140,7 @@ class Calc extends Component {
     );
   }
 
-  // Method to handle negative/positive key clicks
+  // Method to handle negate toggle key clicks
   handleNegateClick() {
     const { currentOperand, operand1 } = this.state;
 
@@ -399,21 +308,21 @@ class Calc extends Component {
 
   render() {
     return (
-      <section className="container">
-        <div className={cx('box', customBox)}>
+      <div className={calcStyles}>
+        <section className="container box">
           <div className="box calculator">
             <Screen ref={el => (this.screenEl = el)} />
             <Keyboard
-              handleDigitClick={e => this.handleDigitClick(e)}
-              handleOperatorClick={e => this.handleOperatorClick(e)}
-              handleNegateClick={this.handleNegateClick}
-              handleDeleteDigit={this.handleDeleteDigit}
-              handleDeleteCurrent={this.handleDeleteCurrent}
               handleReset={this.handleReset}
+              handleDeleteCurrent={this.handleDeleteCurrent}
+              handleDeleteDigit={this.handleDeleteDigit}
+              handleDigitClick={e => this.handleDigitClick(e)}
+              handleNegateClick={this.handleNegateClick}
+              handleOperatorClick={e => this.handleOperatorClick(e)}
             />
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     );
   }
 }
