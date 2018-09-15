@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { css } from 'react-emotion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const mainNavbarStyle = css`
+const navbarStyles = css`
   .navbar-item > .button {
     color: #fff;
     background-color: inherit;
@@ -34,7 +34,7 @@ const mainNavbarStyle = css`
   }
 `;
 
-export class MainNavbar extends React.Component {
+export class Navbar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -58,7 +58,7 @@ export class MainNavbar extends React.Component {
     const { currentPath } = this.props;
 
     return (
-      <div className={mainNavbarStyle}>
+      <div className={navbarStyles}>
         <div className="container">
           <nav
             className="navbar"
@@ -143,4 +143,4 @@ const mapStateToProps = ({ router }) => ({
 });
 
 // Connect the container component to Redux store
-export default connect(mapStateToProps)(MainNavbar);
+export default connect(mapStateToProps)(Navbar);

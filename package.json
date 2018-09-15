@@ -47,7 +47,7 @@
     "prettier": "^1.14.2",
     "prettier-eslint": "^8.8.2",
     "prop-types": "^15.6.2",
-    "react-hot-loader": "^4.3.7",
+    "react-hot-loader": "^4.3.8",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "url-loader": "^1.1.1",

@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { css, cx } from 'react-emotion';
+import { css } from 'react-emotion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { actions } from 'modules/stories.js';
 import * as api from 'utils/api';
 
 import StoryList from 'screens/stories/StoryList';
+import Button from 'components/Button.js';
 
-const customBox = css`
+const storiesStyles = css`
   .spinner {
     display: block;
     width: 1rem;
     height: 100%;
     margin: 0 auto;
   }
-  .to-top {
+  .to_top {
     display: none;
     position: fixed;
     bottom: 20px;
@@ -42,11 +43,11 @@ class Stories extends Component {
   }
 
   handleScroll() {
-    if (this.toTopButton !== null) {
+    if (this.toTopButtonEl !== null) {
       if (document.documentElement.scrollTop > 580) {
-        this.toTopButton.style.display = 'block';
+        this.toTopButtonEl.style.display = 'block';
       } else {
-        this.toTopButton.style.display = 'none';
+        this.toTopButtonEl.style.display = 'none';
       }
     }
   }
@@ -62,23 +63,22 @@ class Stories extends Component {
     const { lastUpdated, requestStories, isFetchingStories, stories } = this.props;
 
     return (
-      <section className="container">
-        <div className={cx('box', customBox)}>
+      <div className={storiesStyles}>
+        <section className="container box">
           <h1 className="title">The New York Times Top Stories</h1>
           <p style={{ fontSize: '0.90rem' }}>
             Last updated at: &nbsp;
             {lastUpdated}
           </p>
-          <button
-            type="button"
-            className="button is-warning"
-            style={{ marginBottom: '1rem' }}
-            onClick={() => {
+          <Button
+            mod="is-warning"
+            modCss={{ marginBottom: '1rem' }}
+            handleClick={() => {
               requestStories(api.url);
             }}
           >
             Refresh
-          </button>
+          </Button>
 
           {isFetchingStories && (
             <span className="spinner">
@@ -91,8 +91,8 @@ class Stories extends Component {
               <StoryList items={stories} />
               <button
                 type="button"
-                ref={el => (this.toTopButton = el)}
-                className="button is-danger to-top"
+                ref={el => (this.toTopButtonEl = el)}
+                className="button is-danger to_top"
                 onClick={() => (document.documentElement.scrollTop = 0)}
               >
                 To Top&nbsp;&nbsp;
@@ -100,8 +100,8 @@ class Stories extends Component {
               </button>
             </div>
           )}
-        </div>
-      </section>
+        </section>
+      </div>
     );
   }
 }

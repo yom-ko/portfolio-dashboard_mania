@@ -17,8 +17,8 @@ export const Button = ({ type, children, disabled, mod, modCss, handleClick }) =
 );
 
 Button.defaultProps = {
-  mod: 'is-info',
-  type: 'button'
+  type: 'button',
+  mod: 'is-info'
 };
 
 Button.propTypes = {
@@ -27,8 +27,8 @@ Button.propTypes = {
     PropTypes.string,
     PropTypes.node
   ]).isRequired,
-  mod: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  mod: PropTypes.string
 };
 
 export default Button;

@@ -42,6 +42,15 @@
         "extensions": [".js", ".jsx"]
       }
     ],
+    "react/button-has-type": [
+      "on",
+      {
+        "button": true,
+        "submit": true,
+        "reset": true,
+        "type": true
+      }
+    ],
     "react/prop-types": ["off"],
     "yield-star-spacing": ["error", "before"]
   }

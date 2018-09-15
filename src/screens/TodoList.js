@@ -16,12 +16,12 @@ const customBox = css`
   .todosWrapper {
     height: 500px;
   }
-  .form-input {
+  .form_input {
     width: 13.5rem;
     margin-right: 0.5rem;
     margin-bottom: 20px;
   }
-  .form-submit {
+  .form_submit {
     margin-bottom: 10px;
   }
 `;
@@ -43,20 +43,20 @@ class Todolist extends Component {
     const { addTodoRequested } = this.props;
 
     // Check if the user has actually entered some text
-    if (!this.inputElement.value.trim()) {
+    if (!this.inputEl.value.trim()) {
       console.log('Empty todos are not allowed!');
       return;
     }
 
     const key = Date.now();
-    const text = this.inputElement.value;
+    const text = this.inputEl.value;
 
     addTodoRequested(key, text);
 
     // Empty the input field and focus on it
     // to facilitate the adding of todos.
-    this.inputElement.value = '';
-    this.inputElement.focus();
+    this.inputEl.value = '';
+    this.inputEl.focus();
   }
 
   toggleTodo(id) {
@@ -77,11 +77,13 @@ class Todolist extends Component {
   }
 
   changePage(e) {
-    const { changePage } = this.props;
-
-    if (typeof e !== 'undefined') {
-      e.preventDefault();
+    if (typeof e === 'undefined') {
+      return;
     }
+
+    e.preventDefault();
+
+    const { changePage } = this.props;
 
     // Make sure the value will be a number
     const pageNumber = Number(e.target.id);
@@ -104,29 +106,27 @@ class Todolist extends Component {
       <section className="container">
         <div className={cx('box', customBox)}>
           <div className="todosWrapper">
-            <div>
-              <form onSubmit={this.addTodo}>
-                <input
-                  type="text"
-                  className="input form-input"
-                  placeholder="Enter a todo"
-                  ref={el => (this.inputElement = el)}
-                />
-                <Button type="submit form-submit">
-                  {isAddingTodo ? 'Todo is loading...' : '+'}
-                </Button>
-              </form>
-              <div style={{ marginBottom: '2rem' }}>
-                <FilterButton filter="ALL" changePageOnFilter={this.changePageOnFilter}>
-                  All
-                </FilterButton>
-                <FilterButton filter="ACTIVE" changePageOnFilter={this.changePageOnFilter}>
-                  Active
-                </FilterButton>
-                <FilterButton filter="COMPLETED" changePageOnFilter={this.changePageOnFilter}>
-                  Completed
-                </FilterButton>
-              </div>
+            <form onSubmit={this.addTodo}>
+              <input
+                type="text"
+                className="input form_input"
+                placeholder="Enter a todo"
+                ref={el => (this.inputEl = el)}
+              />
+              <Button type="submit" className="form_submit">
+                {isAddingTodo ? 'Todo is loading...' : '+'}
+              </Button>
+            </form>
+            <div style={{ marginBottom: '2rem' }}>
+              <FilterButton filter="ALL" changePageOnFilter={this.changePageOnFilter}>
+                All
+              </FilterButton>
+              <FilterButton filter="ACTIVE" changePageOnFilter={this.changePageOnFilter}>
+                Active
+              </FilterButton>
+              <FilterButton filter="COMPLETED" changePageOnFilter={this.changePageOnFilter}>
+                Completed
+              </FilterButton>
             </div>
             <PaginatedList
               currentItems={currentTodos}
@@ -134,11 +134,13 @@ class Todolist extends Component {
               handleClick2={this.removeTodo}
             />
           </div>
-          <Paginator
-            pageNumbers={pageNumbers}
-            currentPage={currentPage}
-            handlePageClick={this.changePage}
-          />
+          {pageNumbers.length > 1 && (
+            <Paginator
+              pageNumbers={pageNumbers}
+              currentPage={currentPage}
+              handlePageClick={this.changePage}
+            />
+          )}
         </div>
       </section>
     );
