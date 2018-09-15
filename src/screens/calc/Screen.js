@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Screen = ({ setRef }) => <div className="screen" ref={setRef} />;
+const Screen = React.forwardRef((props, ref) => <div className="screen" ref={ref} />);
 
 export default Screen;

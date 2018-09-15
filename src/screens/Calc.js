@@ -137,7 +137,6 @@ class Calc extends Component {
   // Bind 'this' in class methods
   constructor(props) {
     super(props);
-    this.setRef = this.setRef.bind(this);
     this.handleDigitClick = this.handleDigitClick.bind(this);
     this.handleNegateClick = this.handleNegateClick.bind(this);
     this.handleOperatorClick = this.handleOperatorClick.bind(this);
@@ -152,11 +151,6 @@ class Calc extends Component {
       operand2: null,
       operator: ''
     };
-  }
-
-  // Method to catch the ref element from the Screen component
-  setRef(el) {
-    this.screenEl = el;
   }
 
   // Method to handle the '<-' key clicks
@@ -408,7 +402,7 @@ class Calc extends Component {
       <section className="container">
         <div className={cx('box', customBox)}>
           <div className="box calculator">
-            <Screen setRef={this.setRef} />
+            <Screen ref={el => (this.screenEl = el)} />
             <Keyboard
               handleDigitClick={e => this.handleDigitClick(e)}
               handleOperatorClick={e => this.handleOperatorClick(e)}
