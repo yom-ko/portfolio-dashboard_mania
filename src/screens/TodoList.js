@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { css, cx } from 'react-emotion';
+import { css } from 'react-emotion';
 
 import { actions, getCurrentTodos, getPageNumbers } from 'modules/todolist';
 
 import Button from 'components/Button';
-import PaginatedList from 'screens/todolist/PaginatedList';
+import List from 'screens/todolist/List';
 import Paginator from 'screens/todolist/Paginator';
 import FilterButton from 'screens/todolist/FilterButton';
 
-const customBox = css`
+const todoListStyles = css`
   min-height: 600px;
-  .todosWrapper {
+  .todos {
     height: 500px;
   }
   .form_input {
-    width: 13.5rem;
+    width: 14.5rem;
     margin-right: 0.5rem;
     margin-bottom: 20px;
   }
@@ -103,9 +103,9 @@ class Todolist extends Component {
     const { isAddingTodo, currentTodos, pageNumbers, currentPage } = this.props;
 
     return (
-      <section className="container">
-        <div className={cx('box', customBox)}>
-          <div className="todosWrapper">
+      <div className={todoListStyles}>
+        <section className="container box">
+          <div className="todos">
             <form onSubmit={this.addTodo}>
               <input
                 type="text"
@@ -128,8 +128,8 @@ class Todolist extends Component {
                 Completed
               </FilterButton>
             </div>
-            <PaginatedList
-              currentItems={currentTodos}
+            <List
+              items={currentTodos}
               handleClick1={this.toggleTodo}
               handleClick2={this.removeTodo}
             />
@@ -141,8 +141,8 @@ class Todolist extends Component {
               handlePageClick={this.changePage}
             />
           )}
-        </div>
-      </section>
+        </section>
+      </div>
     );
   }
 }

@@ -24,7 +24,7 @@ const composedEnhancers = composeEnhancers(
   ...enhancers
 );
 
-// create the app store
+// create the store
 export default createStore(
   connectRouter(history)(rootReducer),
   preloadedState,

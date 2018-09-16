@@ -88,18 +88,21 @@ export const getVisibleTodos = state => {
 };
 
 export const getCurrentTodos = state => {
-  const indexOfLastTodo = state.pagination.currentPage * state.pagination.todosPerPage;
-  const indexOfFirstTodo = indexOfLastTodo - state.pagination.todosPerPage;
-  const currentTodos = getVisibleTodos(state).slice(indexOfFirstTodo, indexOfLastTodo);
+  const { currentPage, todosPerPage } = state.pagination;
 
-  return currentTodos;
+  const indexOfLastTodo = currentPage * todosPerPage;
+  const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
+
+  return getVisibleTodos(state).slice(indexOfFirstTodo, indexOfLastTodo);
 };
 
 export const getPageNumbers = state => {
-  const pageNumbers = [];
-  const pageItems = getVisibleTodos(state);
+  const { todosPerPage } = state.pagination;
 
-  for (let i = 1; i <= Math.ceil(pageItems.length / state.pagination.todosPerPage); i++) {
+  const pageNumbers = [];
+  const todoItems = getVisibleTodos(state);
+
+  for (let i = 1; i <= Math.ceil(todoItems.length / todosPerPage); i++) {
     pageNumbers.push(i);
   }
 

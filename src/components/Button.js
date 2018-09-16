@@ -27,7 +27,7 @@ Button.propTypes = {
     PropTypes.string,
     PropTypes.node
   ]).isRequired,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['submit', 'reset', 'button']),
   mod: PropTypes.string
 };
 

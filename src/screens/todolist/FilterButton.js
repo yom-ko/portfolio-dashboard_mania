@@ -5,8 +5,8 @@ import { actions } from 'modules/todolist';
 
 import Button from 'components/Button';
 
-const customButton = `
-  margin-right: 10px;
+const filterButtonStyles = `
+  margin-right: 0.5rem;
 `;
 
 export const FilterButton = ({ children, active, changeFilter, changePageOnFilter }) => (
@@ -14,7 +14,7 @@ export const FilterButton = ({ children, active, changeFilter, changePageOnFilte
     type="button"
     disabled={active}
     mod="is-text"
-    modCss={customButton}
+    modCss={filterButtonStyles}
     handleClick={() => {
       changeFilter();
       changePageOnFilter();
@@ -34,7 +34,7 @@ FilterButton.propTypes = {
     PropTypes.string,
     PropTypes.node
   ]).isRequired,
-  active: PropTypes.PropTypes.bool.isRequired,
+  active: PropTypes.bool.isRequired,
   changeFilter: PropTypes.func.isRequired,
   changePageOnFilter: PropTypes.func
 };

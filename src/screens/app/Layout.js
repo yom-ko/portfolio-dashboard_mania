@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SiteHeader from 'screens/app/SiteHeader';
-import Navbar from 'screens/app/Navbar';
-import SiteContent from 'screens/app/SiteContent';
+import SiteHeader from 'screens/app/layout/SiteHeader';
+import Navbar from 'screens/app/layout/Navbar';
+import SiteContent from 'screens/app/layout/SiteContent';
 
 const Layout = ({ children }) => (
   <>

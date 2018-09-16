@@ -35,7 +35,6 @@ const Home = () => (
         &quot; (do click, it&apos;s worth taking a look).
       </MainText>
       <br />
-
       <MainText style={{ textDecoration: 'underline' }}>
         Key (and equally AWESOME) libs used in this project:
       </MainText>

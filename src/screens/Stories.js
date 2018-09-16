@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { actions } from 'modules/stories.js';
 import * as api from 'utils/api';
 
-import StoryList from 'screens/stories/StoryList';
 import Button from 'components/Button.js';
+import StoryList from 'screens/stories/StoryList';
 
 const storiesStyles = css`
   .spinner {

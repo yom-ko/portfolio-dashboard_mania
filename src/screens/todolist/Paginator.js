@@ -1,10 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css, cx } from 'react-emotion';
-
-const customPaginationLink = css`
-  cursor: pointer;
-`;
 
 export const Paginator = ({ pageNumbers, currentPage, handlePageClick }) => {
   const pageItems = (() => {
@@ -15,12 +10,10 @@ export const Paginator = ({ pageNumbers, currentPage, handlePageClick }) => {
           key={number}
           onClick={handlePageClick}
           onKeyDown={handlePageClick}
-          tabIndex="0"
+          className={currentPage === number ? 'pagination-link is-current' : 'pagination-link'}
+          style={{ cursor: 'pointer' }}
           role="button"
-          className={cx(
-            currentPage === number ? 'pagination-link is-current' : 'pagination-link',
-            customPaginationLink
-          )}
+          tabIndex="0"
         >
           {number}
         </li>
