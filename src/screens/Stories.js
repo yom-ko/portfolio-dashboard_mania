@@ -29,6 +29,7 @@ const storiesStyles = css`
 class Stories extends Component {
   constructor(props) {
     super(props);
+    this.toTopButtonEl = React.createRef();
     this.handleScroll = this.handleScroll.bind(this);
     this.requestStoriesIfNeeded = this.requestStoriesIfNeeded.bind(this);
   }
@@ -43,11 +44,11 @@ class Stories extends Component {
   }
 
   handleScroll() {
-    if (this.toTopButtonEl !== null) {
+    if (this.toTopButtonEl) {
       if (document.documentElement.scrollTop > 580) {
-        this.toTopButtonEl.style.display = 'block';
+        this.toTopButtonEl.current.style.display = 'block';
       } else {
-        this.toTopButtonEl.style.display = 'none';
+        this.toTopButtonEl.current.style.display = 'none';
       }
     }
   }
@@ -91,7 +92,7 @@ class Stories extends Component {
               <StoryList items={stories} />
               <button
                 type="button"
-                ref={el => (this.toTopButtonEl = el)}
+                ref={this.toTopButtonEl}
                 className="button is-danger to_top"
                 onClick={() => (document.documentElement.scrollTop = 0)}
               >
