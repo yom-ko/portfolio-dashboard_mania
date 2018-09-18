@@ -31,7 +31,6 @@ class Stories extends Component {
     super(props);
     this.toTopButtonEl = React.createRef();
     this.handleScroll = this.handleScroll.bind(this);
-    this.requestStoriesIfNeeded = this.requestStoriesIfNeeded.bind(this);
   }
 
   componentDidMount() {
@@ -117,8 +116,7 @@ const mapStateToProps = ({ stories }) => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
-    requestStories: actions.requestStories,
-    invalidateStories: actions.invalidateStories
+    requestStories: actions.requestStories
   },
   dispatch
 );

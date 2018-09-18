@@ -6,7 +6,7 @@ import * as api from 'utils/api';
 
 // Sagas
 function* addTodo(action) {
-  yield delay(1000);
+  yield delay(1000); // Delay adding the todo (JFF)
   yield put(todoListActions.addTodo(action));
 }
 

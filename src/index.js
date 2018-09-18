@@ -27,12 +27,10 @@ const target = document.querySelector('#app');
 
 // Render App
 render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <HotApp />
-      </ConnectedRouter>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <HotApp />
+    </ConnectedRouter>
+  </Provider>,
   target
 );
