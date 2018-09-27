@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import { injectGlobal } from 'react-emotion';
 
@@ -56,11 +56,14 @@ library.add(
 // App component with routes
 export const App = () => (
   <Layout>
-    <Route exact path="/" component={Home} />
-    <Route exact path="/todolist" component={TodoList} />
-    <Route exact path="/stories" component={Stories} />
-    <Route exact path="/calc" component={Calc} />
-    <Route exact path="/login" component={Login} />
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/todolist" component={TodoList} />
+      <Route path="/stories" component={Stories} />
+      <Route path="/calc" component={Calc} />
+      <Route path="/login" component={Login} />
+      <Redirect from="*" to="/" />
+    </Switch>
   </Layout>
 );
 
