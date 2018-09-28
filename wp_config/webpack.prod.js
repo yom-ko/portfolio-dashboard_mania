@@ -1,10 +1,12 @@
-const common = require('./webpack.common.js');
 const merge = require('webpack-merge');
 
 /* Webpack plugins */
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+// Common config
+const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -48,6 +50,12 @@ module.exports = merge(common, {
       }
     ]
   },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
@@ -65,7 +73,7 @@ module.exports = merge(common, {
       }
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css'
+      filename: '[name]_[contenthash:8].css'
     }),
     new OptimizeCssAssetsPlugin({
       cssProcessorOptions: { discardComments: { removeAll: true } }

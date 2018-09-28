@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+
 import { css } from 'react-emotion';
 
 import { actions, getCurrentTodos, getPageNumbers } from 'modules/todolist';

@@ -1,9 +1,12 @@
+const path = require('path');
+
 // Webpack plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // Config constants
-const ROOT = `${__dirname}/../`;
+const ROOT = path.resolve(__dirname, '../');
 const ENTRY = `${ROOT}/src/index.js`;
 const OUTPUT = `${ROOT}/build`;
 
@@ -42,7 +45,7 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 4000,
-              name: '[name]_[md5:hash:hex:12].[ext]'
+              name: '[name]_[md5:hash:hex:8].[ext]'
             }
           }
         ]
@@ -55,7 +58,8 @@ module.exports = {
   },
   output: {
     path: OUTPUT,
-    filename: '[name].bundle.js'
+    filename: '[name]_[contenthash:8].js',
+    chunkFilename: '[name]_[chunkhash:8].js'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -63,6 +67,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(['build'], {
       root: ROOT
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ]
 };

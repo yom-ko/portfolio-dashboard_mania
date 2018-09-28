@@ -1,10 +1,10 @@
 const webpack = require('webpack');
-
-const common = require('./webpack.common.js');
 const merge = require('webpack-merge');
 
 // Webpack plugins
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
+const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',

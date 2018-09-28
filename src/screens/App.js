@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
+import Loadable from 'react-loadable';
 import { injectGlobal } from 'react-emotion';
 
 // Import fontawesome helper and icons
@@ -17,13 +18,32 @@ import {
   faArrowLeft
 } from '@fortawesome/free-solid-svg-icons';
 
+// Import shared Loading... comp
+import Loading from 'components/Loading';
+
 // Import high-level components
 import Layout from 'screens/app/Layout';
-import Home from 'screens/Home';
-import TodoList from 'screens/TodoList';
-import Stories from 'screens/Stories';
-import Calc from 'screens/Calc';
-import Login from 'screens/Login';
+
+const Home = Loadable({
+  loader: () => import(/* webpackChunkName: 'home' */ 'screens/Home'),
+  loading: Loading
+});
+const Todolist = Loadable({
+  loader: () => import(/* webpackChunkName: 'todolist' */ 'screens/TodoList'),
+  loading: Loading
+});
+const Stories = Loadable({
+  loader: () => import(/* webpackChunkName: 'stories' */ 'screens/Stories'),
+  loading: Loading
+});
+const Calc = Loadable({
+  loader: () => import(/* webpackChunkName: 'calc' */ 'screens/Calc'),
+  loading: Loading
+});
+const Login = Loadable({
+  loader: () => import(/* webpackChunkName: 'login' */ 'screens/Login'),
+  loading: Loading
+});
 
 // Import Bulma styles (shared by all components)
 import 'screens/app/styles.sass';
@@ -58,7 +78,7 @@ export const App = () => (
   <Layout>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/todolist" component={TodoList} />
+      <Route path="/todolist" component={Todolist} />
       <Route path="/stories" component={Stories} />
       <Route path="/calc" component={Calc} />
       <Route path="/login" component={Login} />
