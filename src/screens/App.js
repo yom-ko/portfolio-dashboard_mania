@@ -18,10 +18,10 @@ import {
   faArrowLeft
 } from '@fortawesome/free-solid-svg-icons';
 
-// Import shared Loading... comp
+// Import shared `Loading...` component
 import Loading from 'components/Loading';
 
-// Import high-level components
+// Import site-wide layout and page components
 import Layout from 'screens/app/Layout';
 
 const Home = Loadable({
@@ -29,7 +29,7 @@ const Home = Loadable({
   loading: Loading
 });
 const Todolist = Loadable({
-  loader: () => import(/* webpackChunkName: 'todolist' */ 'screens/TodoList'),
+  loader: () => import(/* webpackChunkName: 'todolist' */ 'screens/Todolist'),
   loading: Loading
 });
 const Stories = Loadable({

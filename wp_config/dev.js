@@ -1,13 +1,29 @@
+const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 
 // Webpack plugins
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
-const common = require('./webpack.common.js');
+// Config constants
+const ROOT = path.resolve(__dirname, '../');
+const OUTPUT = `${ROOT}/build`;
+
+const common = require('./common.js');
 
 module.exports = merge(common, {
   mode: 'development',
+  output: {
+    path: OUTPUT,
+    filename: '[name].js',
+    chunkFilename: '[name].js'
+  },
+  devServer: {
+    port: 8080,
+    hot: true,
+    historyApiFallback: true,
+    clientLogLevel: 'warning'
+  },
   module: {
     rules: [
       {
@@ -20,19 +36,13 @@ module.exports = merge(common, {
       }
     ]
   },
-  devServer: {
-    port: 8080,
-    hot: true,
-    historyApiFallback: true,
-    clientLogLevel: 'warning'
-  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new BrowserSyncPlugin(
       // BrowserSync options
       {
         // browse to http://localhost:3000/ during development
-        host: '192.168.1.9',
+        host: '192.168.1.10',
         port: 3000,
         // proxy the Webpack Dev Server endpoint through BrowserSync
         proxy: 'http://localhost:8080/',

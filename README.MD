@@ -14,4 +14,4 @@ Key (and equally awesome) libs used in this project:
   * Icons - Fontawesome (fontawesome + fontawesome-svg-core + free-solid-svg-icons + react-fontawesome)
 * State Management - Redux (redux + react-redux)
 * Side Effect Management - Redux-Saga (redux-saga)
-* Routing - React Router (react-router + react-router-dom + connected-react-router)
+* Routing - React Router (react-router-dom + connected-react-router)

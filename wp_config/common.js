@@ -12,6 +12,15 @@ const OUTPUT = `${ROOT}/build`;
 
 module.exports = {
   entry: ENTRY,
+  output: {
+    path: OUTPUT,
+    filename: '[name].[contenthash:8].js',
+    chunkFilename: '[name].[contenthash:8].js'
+  },
+  resolve: {
+    modules: ['src', 'node_modules'],
+    extensions: ['*', '.js', '.jsx']
+  },
   module: {
     rules: [
       {
@@ -51,15 +60,6 @@ module.exports = {
         ]
       }
     ]
-  },
-  resolve: {
-    modules: ['src', 'node_modules'],
-    extensions: ['*', '.js', '.jsx']
-  },
-  output: {
-    path: OUTPUT,
-    filename: '[name]_[contenthash:8].js',
-    chunkFilename: '[name]_[chunkhash:8].js'
   },
   plugins: [
     new HtmlWebpackPlugin({
