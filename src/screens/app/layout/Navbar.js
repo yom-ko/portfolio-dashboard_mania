@@ -1,5 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { css } from 'react-emotion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +19,7 @@ const navbarStyles = css`
     background-color: #b8335c;
   }
 
-  .navbar-item > .button:focus:not(:active) {
+  .navbar-item > .button:focus {
     color: #fff;
     background-color: #b8335c;
     border-color: #c93c67;
@@ -34,7 +33,7 @@ const navbarStyles = css`
   }
 `;
 
-export class Navbar extends React.Component {
+export class Navbar extends Component {
   constructor(props) {
     super(props);
 
@@ -55,7 +54,6 @@ export class Navbar extends React.Component {
 
   render() {
     const { isOpen } = this.state;
-    const { currentPath } = this.props;
 
     return (
       <div className={navbarStyles}>
@@ -82,34 +80,22 @@ export class Navbar extends React.Component {
             <div className={isOpen ? 'navbar-menu is-active' : 'navbar-menu'}>
               <div className="navbar-start">
                 <div className="navbar-item">
-                  <NavLink
-                    className={currentPath === '/' ? 'button active-button' : 'button'}
-                    to="/"
-                  >
+                  <NavLink className="button" activeClassName="active-button" exact to="/">
                     Home
                   </NavLink>
                 </div>
                 <div className="navbar-item">
-                  <NavLink
-                    className={currentPath === '/todolist' ? 'button active-button' : 'button'}
-                    to="/todolist"
-                  >
+                  <NavLink className="button" activeClassName="active-button" to="/todolist">
                     Todolist
                   </NavLink>
                 </div>
                 <div className="navbar-item">
-                  <NavLink
-                    className={currentPath === '/stories' ? 'button active-button' : 'button'}
-                    to="/stories"
-                  >
+                  <NavLink className="button" activeClassName="active-button" to="/stories">
                     Stories
                   </NavLink>
                 </div>
                 <div className="navbar-item">
-                  <NavLink
-                    className={currentPath === '/calc' ? 'button active-button' : 'button'}
-                    to="/calc"
-                  >
+                  <NavLink className="button" activeClassName="active-button" to="/calc">
                     Calc
                   </NavLink>
                 </div>
@@ -117,12 +103,7 @@ export class Navbar extends React.Component {
 
               <div className="navbar-end">
                 <div className="navbar-item">
-                  <NavLink
-                    className={
-                      currentPath === '/login' ? 'button active-button is-text' : 'button is-text'
-                    }
-                    to="/login"
-                  >
+                  <NavLink className="button is-text" activeClassName="active-button" to="/login">
                     <span className="icon is-small">
                       <FontAwesomeIcon icon="sign-in-alt" />
                     </span>
@@ -138,9 +119,4 @@ export class Navbar extends React.Component {
   }
 }
 
-const mapStateToProps = ({ router }) => ({
-  currentPath: router.location.pathname
-});
-
-// Connect the container component to Redux store
-export default connect(mapStateToProps)(Navbar);
+export default Navbar;

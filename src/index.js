@@ -2,10 +2,10 @@ import 'regenerator-runtime/runtime';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { saveState } from 'utils/localStorage';
 
-import store, { history } from 'store';
+import store from 'store';
 
 // Import App component
 import HotApp from 'screens/App';
@@ -28,9 +28,9 @@ const target = document.querySelector('#app');
 // Render App
 render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <Router>
       <HotApp />
-    </ConnectedRouter>
+    </Router>
   </Provider>,
   target
 );
