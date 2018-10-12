@@ -3,7 +3,6 @@ const path = require('path');
 // Webpack plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // Config constants
 const ROOT = path.resolve(__dirname, '../');
@@ -67,7 +66,6 @@ module.exports = {
     }),
     new CleanWebpackPlugin(['build'], {
       root: ROOT
-    }),
-    new BundleAnalyzerPlugin()
+    })
   ]
 };
