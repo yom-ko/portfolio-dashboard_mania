@@ -8,7 +8,7 @@ import { saveState } from 'utils/localStorage';
 import store from 'store';
 
 // Import App component
-import HotApp from 'screens/App';
+import App from 'screens/App';
 
 // Save state to the browser's localStorage
 store.subscribe(() => {
@@ -29,7 +29,7 @@ const target = document.querySelector('#app');
 render(
   <Provider store={store}>
     <Router>
-      <HotApp />
+      <App />
     </Router>
   </Provider>,
   target

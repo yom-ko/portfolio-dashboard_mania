@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { hot } from 'react-hot-loader';
 import MainText from 'components/MainText';
 
 const Home = () => (
@@ -61,4 +61,4 @@ const Home = () => (
   </section>
 );
 
-export default Home;
+export default hot(module)(Home);

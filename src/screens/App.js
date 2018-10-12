@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { hot } from 'react-hot-loader';
 import Loadable from 'react-loadable';
 import { injectGlobal } from 'react-emotion';
 
@@ -87,4 +86,4 @@ export const App = () => (
   </Layout>
 );
 
-export default hot(module)(App);
+export default App;

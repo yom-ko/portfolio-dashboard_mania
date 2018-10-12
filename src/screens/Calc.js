@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
 import { css } from 'react-emotion';
 
 import Screen from 'screens/calc/Screen';
@@ -327,4 +328,4 @@ class Calc extends Component {
   }
 }
 
-export default Calc;
+export default hot(module)(Calc);

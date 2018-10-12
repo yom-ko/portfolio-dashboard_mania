@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { css } from 'react-emotion';
@@ -122,7 +123,9 @@ const mapDispatchToProps = dispatch => bindActionCreators(
 );
 
 // Connect the container component to Redux store
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Stories);
+export default hot(module)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Stories)
+);
