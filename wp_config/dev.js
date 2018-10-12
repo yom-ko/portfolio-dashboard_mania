@@ -7,6 +7,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 // Config constants
 const ROOT = path.resolve(__dirname, '../');
+const PUBLIC = `${ROOT}/public`;
 const OUTPUT = `${ROOT}/build`;
 
 const common = require('./common.js');
@@ -19,6 +20,7 @@ module.exports = merge(common, {
     chunkFilename: '[name].js'
   },
   devServer: {
+    contentBase: PUBLIC,
     port: 8080,
     hot: true,
     historyApiFallback: true,
@@ -48,7 +50,7 @@ module.exports = merge(common, {
         proxy: 'http://localhost:8080/',
         notify: false
       },
-      // plugin options
+      // Plugin options
       {
         // prevent BrowserSync from reloading the page
         // and let Webpack Dev Server take care of this

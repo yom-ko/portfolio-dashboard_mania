@@ -7,6 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 // Config constants
 const ROOT = path.resolve(__dirname, '../');
 const ENTRY = `${ROOT}/src/index.js`;
+const PUBLIC = `${ROOT}/public`;
 const OUTPUT = `${ROOT}/build`;
 
 module.exports = {
@@ -62,7 +63,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: `${PUBLIC}/index.html`
     }),
     new CleanWebpackPlugin(['build'], {
       root: ROOT
