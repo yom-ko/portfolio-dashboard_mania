@@ -10,6 +10,7 @@ const ROOT = path.resolve(__dirname, '../');
 const PUBLIC = `${ROOT}/public`;
 const OUTPUT = `${ROOT}/build`;
 
+// Common config
 const common = require('./common.js');
 
 module.exports = merge(common, {

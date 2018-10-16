@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { hot } from 'react-hot-loader';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import { css } from 'react-emotion';
 
 import { actions, getCurrentTodos, getPageNumbers } from 'modules/todolist';
@@ -179,7 +177,7 @@ const mapDispatchToProps = dispatch => bindActionCreators(
 );
 
 // Connect the container component to Redux store
-export default hot(module)(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Todolist));
+)(Todolist);
