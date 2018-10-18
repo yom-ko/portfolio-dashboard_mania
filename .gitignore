@@ -1,14 +1,17 @@
 # Dependency dirs
-node_modules/
+/node_modules/
 
-# Build dirs
-dist/
-prod/
-build/
+# Build and temp dirs
+/public/
+/build/
+/prod/
+/dist/
+/.tmp/
+/.cache/
 
 # Logs
-logs
-*.log
+/logs/
+/*.log
 
-# IDE config
-.vscode/
+# IDE's local config
+/.vscode/

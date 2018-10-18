@@ -3,9 +3,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { saveState } from 'utils/localStorage';
 
 import store from 'store';
+import { saveState } from 'utils/localStorage';
 
 // Import App component
 import App from 'screens/App';
