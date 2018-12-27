@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 /* eslint-disable no-unused-vars */
-import { css, cx } from 'react-emotion';
+import { css, jsx } from '@emotion/core';
 /* eslint-enable */
 
 export const Button = ({ type, children, disabled, mod, modCss, handleClick }) => (
   <button
     type={type}
     disabled={disabled}
-    className={cx('button', mod)}
+    className={`button ${mod}`}
     css={modCss}
     onClick={handleClick}
   >

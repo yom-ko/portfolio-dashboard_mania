@@ -1,24 +1,19 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@emotion/babel-preset-css-prop"
+  ],
   "env": {
     "production": {
-      "plugins": [
-        [
-          "emotion",
-          {
-            "hoist": true
-          }
-        ],
-        "@babel/plugin-syntax-dynamic-import"
-      ]
+      "plugins": ["emotion", "@babel/plugin-syntax-dynamic-import"]
     },
     "development": {
       "plugins": [
         [
           "emotion",
           {
-            "sourceMap": true,
-            "autoLabel": true
+            "sourceMap": true
           }
         ],
         "@babel/plugin-syntax-dynamic-import"

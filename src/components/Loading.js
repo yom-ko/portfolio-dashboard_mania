@@ -1,5 +1,7 @@
 import React from 'react';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 
 const loadingStyles = css`
   .spinner {
@@ -11,7 +13,7 @@ const loadingStyles = css`
 `;
 
 export const Loading = () => (
-  <div className={loadingStyles}>
+  <div css={loadingStyles}>
     <span className="spinner">Loading...</span>
   </div>
 );

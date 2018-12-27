@@ -1,5 +1,7 @@
 import React from 'react';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 
 const screen = css`
   font-family: 'Digital7';
@@ -16,6 +18,6 @@ const screen = css`
   box-shadow: outset 2px 1px 2px gray;
 `;
 
-const Screen = React.forwardRef((props, ref) => <div className={screen} ref={ref} />);
+const Screen = React.forwardRef((props, ref) => <div css={screen} ref={ref} />);
 
 export default Screen;

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 
 import { actions, getCurrentTodos, getPageNumbers } from 'modules/todolist';
 
@@ -103,7 +105,7 @@ class Todolist extends Component {
     const { isAddingTodo, currentTodos, pageNumbers, currentPage } = this.props;
 
     return (
-      <div className={todoListStyles}>
+      <div css={todoListStyles}>
         <section className="container box">
           <div className="todos">
             <form onSubmit={this.addTodo}>

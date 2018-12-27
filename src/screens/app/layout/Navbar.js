@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const navbarStyles = css`
@@ -55,7 +57,7 @@ export class Navbar extends Component {
     const { isOpen } = this.state;
 
     return (
-      <div className={navbarStyles}>
+      <div css={[navbarStyles]}>
         <div className="container">
           <nav
             className="navbar"

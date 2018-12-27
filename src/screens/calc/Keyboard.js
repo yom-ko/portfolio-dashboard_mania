@@ -1,6 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 
 const keyboardStyles = css`
   /* Shared keyboard styles */
@@ -75,7 +77,7 @@ const Keyboard = ({
   handleNegateClick,
   handleOperatorClick
 }) => (
-  <div className={keyboardStyles}>
+  <div css={keyboardStyles}>
     <div className="box is-clearfix">
       <div className="buttons service_keys">
         <button type="button" className="button key_reset" onClick={handleReset}>

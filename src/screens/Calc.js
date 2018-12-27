@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 
 import Screen from 'screens/calc/Screen';
 import Keyboard from 'screens/calc/Keyboard';
@@ -309,7 +311,7 @@ class Calc extends Component {
 
   render() {
     return (
-      <div className={calcStyles}>
+      <div css={calcStyles}>
         <section className="container box">
           <div className="box calculator">
             <Screen ref={el => (this.screenEl = el)} />

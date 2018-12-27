@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
-import { injectGlobal } from 'react-emotion';
+import { Global, css } from '@emotion/core';
 
 // Import fontawesome helper and icons
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -50,15 +50,6 @@ import 'screens/app/styles.sass';
 // Import custom fonts
 import digital7Font from 'screens/app/fonts/digital7.woff';
 
-injectGlobal`
-  @font-face {
-    font-family: 'Digital7';
-    font-style: normal;
-    font-weight: 400;
-    src: url(${digital7Font}) format('woff');
-  }
-`;
-
 // Initialize custom fontawesome library with icons
 library.add(
   faSignInAlt,
@@ -75,6 +66,16 @@ library.add(
 // App component with routes
 export const App = () => (
   <Layout>
+    <Global
+      styles={css`
+        @font-face {
+          font-family: 'Digital7';
+          font-style: normal;
+          font-weight: 400;
+          src: url(${digital7Font}) format('woff');
+        }
+      `}
+    />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/todolist" component={Todolist} />

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { actions } from 'modules/stories.js';
@@ -64,7 +66,7 @@ class Stories extends Component {
     const { lastUpdated, requestStories, isFetchingStories, stories } = this.props;
 
     return (
-      <div className={storiesStyles}>
+      <div css={storiesStyles}>
         <section className="container box">
           <h1 className="title">The New York Times Top Stories</h1>
           <p style={{ fontSize: '0.90rem' }}>

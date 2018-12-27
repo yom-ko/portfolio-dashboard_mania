@@ -1,5 +1,7 @@
 import React from 'react';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 
 const siteHeaderStyles = css`
   background-color: #c93c67;
@@ -9,7 +11,7 @@ const siteHeaderStyles = css`
 `;
 
 const SiteHeader = ({ children }) => (
-  <div className={siteHeaderStyles}>
+  <div css={siteHeaderStyles}>
     <div className="section">{children}</div>
   </div>
 );

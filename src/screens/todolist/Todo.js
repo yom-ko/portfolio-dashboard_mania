@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'react-emotion';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 
 const todoStyles = css`
   width: 17.3rem;
@@ -16,7 +18,6 @@ const todoStyles = css`
   }
 
   span:first-child {
-    display: inline-block;
     width: 90%;
     float: left;
     margin-right: 0;
@@ -24,7 +25,7 @@ const todoStyles = css`
 `;
 
 export const Todo = ({ item, handleClick1, handleClick2 }) => (
-  <li className={todoStyles}>
+  <li css={todoStyles}>
     <span
       onClick={() => handleClick1(item[0])}
       onKeyDown={() => handleClick1(item[0])}

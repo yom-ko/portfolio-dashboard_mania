@@ -1,11 +1,14 @@
 import React from 'react';
+/* eslint-disable no-unused-vars */
+import { css, jsx } from '@emotion/core';
+/* eslint-enable */
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { actions } from 'modules/todolist';
 
+import { actions } from 'modules/todolist';
 import Button from 'components/Button';
 
-const filterButtonStyles = `
+const filterButtonStyles = css`
   margin-right: 0.5rem;
 `;
 
