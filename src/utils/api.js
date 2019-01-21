@@ -3,7 +3,12 @@ export const fetchArticles = url => fetch(url)
     if (response.ok) {
       return response.json();
     }
-    throw new Error('Probably, a network error occurred.');
+    return response.json().then(data => {
+      const {
+        fault: { faultstring }
+      } = data;
+      throw new Error(faultstring);
+    });
   })
   .catch(error => {
     console.log('A problem with the fetch operation: ', error.message);

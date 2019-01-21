@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 /* eslint-disable no-unused-vars */
 import { css, jsx } from '@emotion/core';
 /* eslint-enable */
@@ -330,4 +330,4 @@ class Calc extends Component {
   }
 }
 
-export default hot(module)(Calc);
+export default hot(Calc);

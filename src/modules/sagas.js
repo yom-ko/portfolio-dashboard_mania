@@ -1,5 +1,4 @@
-import { delay } from 'redux-saga';
-import { put, takeEvery, fork, all, call } from 'redux-saga/effects';
+import { put, takeEvery, fork, all, call, delay } from 'redux-saga/effects';
 import { actions as todoListActions } from 'modules/todolist';
 import { actions as storiesActions } from 'modules/stories';
 import * as api from 'utils/api';

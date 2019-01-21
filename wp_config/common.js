@@ -19,7 +19,10 @@ module.exports = {
   },
   resolve: {
     modules: ['src', 'node_modules'],
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
   },
   module: {
     rules: [
@@ -65,8 +68,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PUBLIC}/index.html`
     }),
-    new CleanWebpackPlugin(['build'], {
-      root: ROOT
-    })
+    new CleanWebpackPlugin()
   ]
 };

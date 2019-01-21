@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 /* eslint-disable no-unused-vars */
@@ -125,9 +125,7 @@ const mapDispatchToProps = dispatch => bindActionCreators(
 );
 
 // Connect the container component to Redux store
-export default hot(module)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Stories)
-);
+export default hot(connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Stories));

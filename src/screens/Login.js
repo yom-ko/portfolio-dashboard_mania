@@ -1,5 +1,5 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 import MainText from 'components/MainText';
 
 const Login = () => (
@@ -10,4 +10,4 @@ const Login = () => (
   </section>
 );
 
-export default hot(module)(Login);
+export default hot(Login);

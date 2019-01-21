@@ -17,7 +17,7 @@ const todoStyles = css`
     cursor: pointer;
   }
 
-  span:first-child {
+  span:first-of-type {
     width: 90%;
     float: left;
     margin-right: 0;

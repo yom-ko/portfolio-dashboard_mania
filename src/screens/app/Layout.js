@@ -1,5 +1,5 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 
 import SiteHeader from 'screens/app/layout/SiteHeader';
 import Navbar from 'screens/app/layout/Navbar';
@@ -14,4 +14,4 @@ const Layout = ({ children }) => (
   </>
 );
 
-export default hot(module)(Layout);
+export default hot(Layout);

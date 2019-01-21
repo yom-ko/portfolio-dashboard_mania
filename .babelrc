@@ -10,6 +10,7 @@
     },
     "development": {
       "plugins": [
+        "react-hot-loader/babel",
         [
           "emotion",
           {
